@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="debug" packages="">
+    <Appenders>
+         <Console name="stdout" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>
+        </Console>
+         <File name="fout" fileName="example.log" append="true">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n" />
+         </File>
+   </Appenders>
+   <Loggers>
+    <Root level="trace">
+       <AppenderRef ref="fout" />
+      <AppenderRef ref="stdout"/>
+    </Root>
+   </Loggers>
+</Configuration>
