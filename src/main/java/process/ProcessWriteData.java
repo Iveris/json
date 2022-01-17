@@ -8,7 +8,7 @@ import write.WriteServiceImpl;
 
 public class ProcessWriteData implements ProcessData{
 
-	private WriteService<String, WriteObj> ws = new WriteServiceImpl<>();
+	private WriteService ws = new WriteServiceImpl();
 	private Map<String, WriteObj> data;
 	
 	@Override
@@ -38,6 +38,11 @@ public class ProcessWriteData implements ProcessData{
 	@Override
 	public Boolean call() throws Exception {
 		return true;
+	}
+
+	@Override
+	public void readComplete(boolean complete) {
+		//used in concurrent classes 
 	}
 
 }

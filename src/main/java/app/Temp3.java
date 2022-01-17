@@ -39,7 +39,7 @@ public class Temp3 {
 			System.exit(1);
 		}
 		
-		WriteService<String, WriteObj> ws = new WriteServiceImpl<>();
+		WriteService ws = new WriteServiceImpl();
 		filename = args[1];
 			ws.getWriter(filename);
 			ws.write(out);

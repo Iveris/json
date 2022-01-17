@@ -5,11 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
 
 import errors.ErrorReporter;
@@ -22,14 +18,13 @@ import read.ReadPOJO;
  * writes to the ReadPOJOQueue and the write stream shares that
  * object to grab entries. 
  */
-public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
+public class WriteStreamServiceImpl implements WriteService {
 	
-	private Gson gson = new GsonBuilder().create();
 	private JsonWriter writer;
 	private volatile boolean readHasFinished = false;
 	
 	@Override
-	public WriteService<String, WriteObj> getWriter(String filename) {
+	public WriteService getWriter(String filename) {
 		FileOutputStream fos = null;
 		try {
 			fos = new FileOutputStream(filename, true);
@@ -40,7 +35,7 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 			System.exit(1);
 		}
 		writer = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
-//		writer.setIndent("    ");
+//		writer.setIndent("    "); //makes the output pretty
 		try {
 			writer.beginObject();
 		} catch (IOException e) {
@@ -53,7 +48,6 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 	@Override
 	//data object could be used to create custom write streams with some reworking in the future
 	public void write(Object data) {
-		Map<String, WriteObj> map = new HashMap<>();
 		//write to file while read is writing to ReadPOJOQueue
 		while(!readHasFinished) {
 			writeEntries();
@@ -75,7 +69,6 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 				writer.name("size").value(rpojo.getSize());
 				writer.endObject();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}		
@@ -84,7 +77,6 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 	@Override
 	public void readComplete(boolean complete) {
 		readHasFinished = complete;
-		
 	}
 
 	@Override

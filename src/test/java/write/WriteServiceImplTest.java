@@ -27,7 +27,7 @@ import read.ReadService;
 
 class WriteServiceImplTest {
 
-	private static WriteService<String, WriteObj> ws = new WriteServiceImpl<>();
+	private static WriteService ws = new WriteServiceImpl();
 	private static Map<String, WriteObj> data = new HashMap<>();
 	private static String actual = "./src/test/resources/data/write/output.json";
 	private static String expected = "./src/test/resources/data/write/normalProcessedData.json";

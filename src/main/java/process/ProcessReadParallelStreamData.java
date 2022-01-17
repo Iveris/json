@@ -38,4 +38,9 @@ public class ProcessReadParallelStreamData implements ProcessData {
 		rs.closeReader();
 		return true;
 	}
+
+	@Override
+	public void readComplete(boolean complete) {
+		//used in concurrent write classes 
+	}
 }

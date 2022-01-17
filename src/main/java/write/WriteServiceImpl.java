@@ -9,13 +9,13 @@ import com.google.gson.GsonBuilder;
 
 import errors.ErrorReporter;
 
-public class WriteServiceImpl<K, V> implements WriteService<K,V>{
+public class WriteServiceImpl implements WriteService {
 
 	private Gson gson = new GsonBuilder().create();
 	private Writer writer;
 	
 	@Override
-	public WriteService<K, V> getWriter(String filename) {
+	public WriteService getWriter(String filename) {
 		try {
 			writer = new FileWriter(filename, true);
 		} catch(IOException e) {
