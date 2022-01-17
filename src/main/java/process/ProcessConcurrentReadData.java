@@ -1,22 +1,18 @@
 package process;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import read.ReadLocalFileServiceImpl;
 import read.ReadPOJO;
 import read.ReadService;
 import read.ReadURLFileServiceImpl;
 import validators.implementations.ReadPOJOValidatorImpl;
-import validators.injectors.ValidatorServiceInjector;
 import validators.injectors.URLValidatorServiceInjector;
+import validators.injectors.ValidatorServiceInjector;
 import validators.services.ValidatorService;
-import write.WriteObj;
 
-public class ProcessReadData implements ProcessData{
-	
+public class ProcessConcurrentReadData implements ProcessData {
+
 	private ReadService rs;
-	private Map<String, WriteObj> results = new HashMap<>();
+	private boolean hasFinished = false;
 	
 	@Override
 	public void process(String dataSource) {
@@ -29,7 +25,7 @@ public class ProcessReadData implements ProcessData{
 			rs = new ReadLocalFileServiceImpl();
 		}
 	}
-	
+
 	@Override
 	public void execute() {
 		ReadPOJO rPojo;
@@ -37,17 +33,19 @@ public class ProcessReadData implements ProcessData{
 		while(rs.hasNext()) {
 			rPojo = (ReadPOJO) rs.next(ReadPOJO.class);
 			if(readPOJOValidator.isValid(rPojo)) {
-				results.put(rPojo.getPath(), new WriteObj(rPojo.getUrl(), rPojo.getSize()));
+				ReadPOJOQueue.add(rPojo);
 			}
 		}
+		hasFinished = true;
 	}
 	
-	public Map<String, WriteObj> getResults(){
-		return results;
+	public boolean getHasFinished() {
+		return hasFinished;
 	}
 
 	@Override
 	public Boolean call() throws Exception {
 		return true;
 	}
+
 }

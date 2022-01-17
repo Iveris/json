@@ -3,17 +3,18 @@ package write;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
-import java.io.Writer;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonWriter;
 
 import errors.ErrorReporter;
+import process.ReadPOJOQueue;
+import read.ReadPOJO;
 
 public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 	
@@ -43,8 +44,16 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 
 	@Override
 	public void write(Object data) {
-		// TODO Auto-generated method stub
-		
+		boolean readFinished = (Boolean) data;
+		Map<String, WriteObj> map = new HashMap<>();
+		while(ReadPOJOQueue.getSize() > 0) {
+			ReadPOJO rpojo = ReadPOJOQueue.remove();
+			map.put(rpojo.getPath(), new WriteObj(rpojo.getUrl(), rpojo.getSize()));
+		}
+		gson.toJson(map);
+		if(readFinished) {
+			closeWriter();
+		}
 	}
 
 	@Override

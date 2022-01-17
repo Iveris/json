@@ -1,10 +1,8 @@
 package process;
 
-public interface ProcessData {
+import java.util.concurrent.Callable;
 
-	//validate data from read
-	//send that data to be written
-	//throw exceptions and write error messages
+public interface ProcessData extends Callable<Boolean>{
 	
 	public void process(String datapath);
 	

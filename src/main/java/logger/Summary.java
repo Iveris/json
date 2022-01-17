@@ -1,0 +1,36 @@
+package logger;
+
+public class Summary {
+	private static int success = 0;
+	private static int skipped = 0;
+	
+	public static int getSuccess() {
+		return success;
+	}
+	public static int getSkipped() {
+		return skipped;
+	}
+	
+	public static void addSuccess() {
+		success++;
+	}
+	public static void addSuccess(int num) {
+		success += num;
+	}
+	
+	public static void addSkipped() {
+		skipped++;
+	}
+	public static void addSkipped(int num) {
+		skipped += num;
+	}
+	
+	@Override
+	public String toString() {
+		return "Processed: " + getSuccess() +"\tSkipped: " + getSkipped() + "\n";
+	}
+	
+	public void printSummary() {
+		System.out.printf("Processed: %d\tSkipped: %d%n", getSuccess(), getSkipped());
+	}
+}

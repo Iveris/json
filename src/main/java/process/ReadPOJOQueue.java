@@ -25,4 +25,7 @@ public class ReadPOJOQueue {
 	public static ReadPOJO peek() {
 		return q.peek();
 	}
+	public static int getSize() {
+		return q.size();
+	}
 }
