@@ -15,11 +15,18 @@ import com.google.gson.stream.JsonWriter;
 import errors.ErrorReporter;
 import process.ReadPOJOQueue;
 import read.ReadPOJO;
-
+/**
+ * 
+ * @author Warner Iveris
+ * This is a parallel stream implementation where the read stream
+ * writes to the ReadPOJOQueue and the write stream shares that
+ * object to grab entries. 
+ */
 public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 	
 	private Gson gson = new GsonBuilder().create();
 	private JsonWriter writer;
+	private volatile boolean readHasFinished = false;
 	
 	@Override
 	public WriteService<String, WriteObj> getWriter(String filename) {
@@ -33,6 +40,7 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 			System.exit(1);
 		}
 		writer = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
+//		writer.setIndent("    ");
 		try {
 			writer.beginObject();
 		} catch (IOException e) {
@@ -43,17 +51,40 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 	}
 
 	@Override
+	//data object could be used to create custom write streams with some reworking in the future
 	public void write(Object data) {
-		boolean readFinished = (Boolean) data;
 		Map<String, WriteObj> map = new HashMap<>();
+		//write to file while read is writing to ReadPOJOQueue
+		while(!readHasFinished) {
+			writeEntries();
+		}
+		//finish writing any remaining entries
+		if(ReadPOJOQueue.getSize() > 0) {
+			writeEntries();
+		}
+			closeWriter();
+	}
+	
+	private void writeEntries() {
 		while(ReadPOJOQueue.getSize() > 0) {
 			ReadPOJO rpojo = ReadPOJOQueue.remove();
-			map.put(rpojo.getPath(), new WriteObj(rpojo.getUrl(), rpojo.getSize()));
-		}
-		gson.toJson(map);
-		if(readFinished) {
-			closeWriter();
-		}
+			try {
+				writer.name(rpojo.getPath());
+				writer.beginObject();
+				writer.name("url").value(rpojo.getUrl());
+				writer.name("size").value(rpojo.getSize());
+				writer.endObject();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}		
+	}
+	
+	@Override
+	public void readComplete(boolean complete) {
+		readHasFinished = complete;
+		
 	}
 
 	@Override
@@ -66,5 +97,6 @@ public class WriteStreamServiceImpl implements WriteService<String, WriteObj> {
 			e.printStackTrace();
 		}
 	}
+
 
 }

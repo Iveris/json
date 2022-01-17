@@ -1,5 +1,9 @@
 package app;
 
+import errors.ErrorReporter;
+import process.ProcessReadData;
+import process.ProcessWriteData;
+
 /**
  * 
  * @author Warner Iveris
@@ -21,19 +25,30 @@ public class App {
 		} else {
 			process(inputFile);
 		}
-		
+		cleanUp();
 	}
 	
 	public static void process(String input) {
-		System.out.println("processing: " + input);
+		ProcessReadData prd = new ProcessReadData();
+		prd.process(input);
+		boolean complete = false;
+		try {
+			complete = prd.call();
+		} catch (Exception e) {
+			ErrorReporter.add("Runtime exception in read thread" + e.getLocalizedMessage());
+			e.printStackTrace();
+		}
+		if(complete) {
+			ProcessWriteData pwd = new ProcessWriteData();
+			pwd.setData(prd.getResults());
+			pwd.process("output.json");
+		}
 	}
 	public static void process(String input, String output) {
 		System.out.println("processing: " + input + " into " + output);
-		System.out.println(System.getProperty("user.dir"));
-		
 	}
 	
 	public static void cleanUp() {
-		
+		ErrorReporter.printErrors();
 	}
 }

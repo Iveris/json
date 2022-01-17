@@ -28,6 +28,8 @@ public class ProcessReadData implements ProcessData{
 		} else {
 			rs = new ReadLocalFileServiceImpl();
 		}
+		rs.getReader(dataSource);
+		
 	}
 	
 	@Override
@@ -48,6 +50,8 @@ public class ProcessReadData implements ProcessData{
 
 	@Override
 	public Boolean call() throws Exception {
+		execute();
+		rs.closeReader();
 		return true;
 	}
 }

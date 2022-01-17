@@ -42,4 +42,9 @@ public class WriteServiceImpl<K, V> implements WriteService<K,V>{
 		}
 	}
 
+	@Override
+	public void readComplete(boolean complete) {
+		//unnecessary for non-streamed service
+	}
+
 }

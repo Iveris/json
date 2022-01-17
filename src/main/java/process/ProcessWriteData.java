@@ -19,11 +19,13 @@ public class ProcessWriteData implements ProcessData{
 			ws.getWriter("output.json");
 		}
 		data = getData();
+		execute();
 	}
 
 	@Override
 	public void execute() {
-		
+		ws.write(data);
+		ws.closeWriter();
 	}
 	
 	public Map<String, WriteObj> getData() {

@@ -9,9 +9,7 @@ public class ErrorReporter {
 	private ErrorReporter() {}
 	
 	public static ErrorReporter getInstance() {
-		if(er == null) {
-			er = new ErrorReporter();
-		}
+		if(er == null) { er = new ErrorReporter(); }
 		return er;
 	}
 	
@@ -22,11 +20,13 @@ public class ErrorReporter {
 	
 	public static void printErrors() {
 		getInstance();
-		Iterator<String> iterator = q.iterator();
-		
-		System.out.println("*****\tERRORS\t*****");
-		while(iterator.hasNext()) {
-			System.out.println(iterator.next());
+		if(!q.isEmpty()) {
+			Iterator<String> iterator = q.iterator();
+			
+			System.out.println("*****\tERRORS\t*****");
+			while(iterator.hasNext()) {
+				System.out.println(iterator.next());
+			}
 		}
 	}
 }

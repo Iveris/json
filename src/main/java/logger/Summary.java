@@ -1,8 +1,17 @@
 package logger;
 
 public class Summary {
+	
+	private static Summary summary;
 	private static int success = 0;
 	private static int skipped = 0;
+	
+	private Summary() {}
+	
+	public static Summary getInstance() {
+		if(summary == null) { summary = new Summary(); }
+		return summary;
+	}
 	
 	public static int getSuccess() {
 		return success;
