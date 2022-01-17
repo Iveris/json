@@ -30,7 +30,7 @@ class WriteStreamServiceImplTest {
 		ReadPOJOQueue.add(rp);
 		ws.getWriter(outputFileName);
 		t.start();
-		ws.readComplete(true);
+		ReadPOJOQueue.setIsReceivingInput(false);
 	}
 
 	@Test

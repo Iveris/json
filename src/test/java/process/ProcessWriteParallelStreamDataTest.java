@@ -44,7 +44,7 @@ class ProcessWriteParallelStreamDataTest {
 			}
 			return false;
 		});
-		pd.readComplete(true);
+		ReadPOJOQueue.setIsReceivingInput(false);
 	}
 
 	@Test

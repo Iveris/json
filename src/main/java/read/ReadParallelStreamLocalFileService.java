@@ -9,6 +9,7 @@ import java.nio.charset.StandardCharsets;
 import com.google.gson.stream.JsonReader;
 
 import errors.ErrorReporter;
+import process.ReadPOJOQueue;
 
 public class ReadParallelStreamLocalFileService implements ReadService {
 
@@ -81,6 +82,7 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 		try {
 			reader.endArray();
 			reader.close();
+			ReadPOJOQueue.setIsReceivingInput(false);
 		} catch (IOException e) {
 			ErrorReporter.add("Error closing input file reader" + e.getLocalizedMessage());
 			e.printStackTrace();

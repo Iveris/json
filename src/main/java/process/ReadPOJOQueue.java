@@ -8,11 +8,13 @@ public class ReadPOJOQueue {
 
 	private static ConcurrentLinkedQueue<ReadPOJO> q = new ConcurrentLinkedQueue<>();
 	private static ReadPOJOQueue rpq;
+	private static volatile boolean isReceivingInput;
 	private ReadPOJOQueue() {}
 	
 	public static ReadPOJOQueue getInstance() {
 		if(rpq == null) {
 			rpq = new ReadPOJOQueue();
+			isReceivingInput = true;
 		}
 		return rpq;
 	}
@@ -27,5 +29,13 @@ public class ReadPOJOQueue {
 	}
 	public static int getSize() {
 		return q.size();
+	}
+
+	public static boolean getIsReceivingInput() {
+		return isReceivingInput;
+	}
+
+	public static void setIsReceivingInput(boolean moreReadInput) {
+		ReadPOJOQueue.isReceivingInput = moreReadInput;
 	}
 }

@@ -21,7 +21,6 @@ import read.ReadPOJO;
 public class WriteStreamServiceImpl implements WriteService {
 	
 	private JsonWriter writer;
-	private volatile boolean readHasFinished = false;
 	
 	@Override
 	public WriteService getWriter(String filename) {
@@ -49,7 +48,7 @@ public class WriteStreamServiceImpl implements WriteService {
 	//data object could be used to create custom write streams with some reworking in the future
 	public void write(Object data) {
 		//write to file while read is writing to ReadPOJOQueue
-		while(!readHasFinished) {
+		while(ReadPOJOQueue.getIsReceivingInput()) {
 			writeEntries();
 		}
 		//finish writing any remaining entries
@@ -74,11 +73,6 @@ public class WriteStreamServiceImpl implements WriteService {
 		}		
 	}
 	
-	@Override
-	public void readComplete(boolean complete) {
-		readHasFinished = complete;
-	}
-
 	@Override
 	public void closeWriter() {
 		try {

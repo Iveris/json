@@ -1,8 +1,10 @@
 package app;
 
 import errors.ErrorReporter;
-import process.ProcessReadData;
-import process.ProcessWriteData;
+import logger.Summary;
+import process.ProcessData;
+import process.injectors.ProcessParallelReadInjector;
+import process.injectors.ProcessParallelWriteInjector;
 
 /**
  * 
@@ -17,6 +19,7 @@ public class App {
 			System.out.println("Must provide an input file or url");
 			System.exit(1);
 		}
+		
 		String inputFile = args[0];
 		String outputFile;
 		if(args.length > 1) {
@@ -29,26 +32,34 @@ public class App {
 	}
 	
 	public static void process(String input) {
-		ProcessReadData prd = new ProcessReadData();
-		prd.process(input);
-		boolean complete = false;
-		try {
-			complete = prd.call();
-		} catch (Exception e) {
-			ErrorReporter.add("Runtime exception in read thread" + e.getLocalizedMessage());
-			e.printStackTrace();
-		}
-		if(complete) {
-			ProcessWriteData pwd = new ProcessWriteData();
-			pwd.setData(prd.getResults());
-			pwd.process("output.json");
-		}
+		ProcessData processReadData = new ProcessParallelReadInjector().getService(input);
+		ProcessData processWriteData = new ProcessParallelWriteInjector().getService("output.json");
+		
+		Thread read = new Thread(()-> {
+			try {
+				processReadData.call();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		Thread write = new Thread(()-> {
+			try {
+				processWriteData.call();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
+		
+		read.start();
+		write.start();
+		
 	}
 	public static void process(String input, String output) {
-		System.out.println("processing: " + input + " into " + output);
 	}
 	
 	public static void cleanUp() {
+		Summary.printSummary();
 		ErrorReporter.printErrors();
 	}
 }

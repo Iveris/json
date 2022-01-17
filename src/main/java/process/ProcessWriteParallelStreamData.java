@@ -7,7 +7,6 @@ import write.WriteStreamServiceImpl;
 public class ProcessWriteParallelStreamData implements ProcessData {
 	
 	private WriteService ws = new WriteStreamServiceImpl();
-	private boolean readHasCompleted = false;
 	
 	@Override
 	public void process(String datapath) {
@@ -18,12 +17,6 @@ public class ProcessWriteParallelStreamData implements ProcessData {
 	public void execute() {
 		Thread tWrite = new Thread(() -> ws.write(ReadPOJO.class));
 		tWrite.start();
-		ws.readComplete(readHasCompleted);
-	}
-	
-	@Override
-	public void readComplete(boolean complete) {
-		readHasCompleted = complete;
 	}
 	
 	@Override

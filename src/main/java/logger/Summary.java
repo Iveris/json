@@ -9,7 +9,9 @@ public class Summary {
 	private Summary() {}
 	
 	public static Summary getInstance() {
-		if(summary == null) { summary = new Summary(); }
+		if(summary == null) { 
+			summary = new Summary(); 
+		}
 		return summary;
 	}
 	
@@ -23,23 +25,23 @@ public class Summary {
 	public static void addSuccess() {
 		success++;
 	}
-	public static void addSuccess(int num) {
-		success += num;
-	}
+//	public static void addSuccess(int num) {
+//		success += num;
+//	}
 	
 	public static void addSkipped() {
 		skipped++;
 	}
-	public static void addSkipped(int num) {
-		skipped += num;
-	}
+//	public static void addSkipped(int num) {
+//		skipped += num;
+//	}
 	
 	@Override
 	public String toString() {
 		return "Processed: " + getSuccess() +"\tSkipped: " + getSkipped() + "\n";
 	}
 	
-	public void printSummary() {
+	public static void printSummary() {
 		System.out.printf("Processed: %d\tSkipped: %d%n", getSuccess(), getSkipped());
 	}
 }

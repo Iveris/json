@@ -8,7 +8,8 @@ public class ReadPOJOValidatorServiceInjector implements ValidatorServiceInjecto
 
 	@Override
 	public ValidatorService<ReadPOJO> getValidator() {
-		return new ReadPOJOValidatorImpl();
+		ValidatorService<ReadPOJO> vs = new ReadPOJOValidatorImpl();
+		return vs;
 	}
 
 }

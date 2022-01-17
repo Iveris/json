@@ -39,10 +39,4 @@ public class ProcessWriteData implements ProcessData{
 	public Boolean call() throws Exception {
 		return true;
 	}
-
-	@Override
-	public void readComplete(boolean complete) {
-		//used in concurrent classes 
-	}
-
 }

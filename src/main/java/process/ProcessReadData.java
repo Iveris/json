@@ -55,8 +55,4 @@ public class ProcessReadData implements ProcessData{
 		return true;
 	}
 
-	@Override
-	public void readComplete(boolean complete) { 
-		//used in concurrent classes 
-	}
 }
