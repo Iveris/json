@@ -7,13 +7,13 @@ import services.read.ReadServiceInjector;
 import validators.injectors.ReadPOJOValidatorServiceInjector;
 import validators.services.ValidatorService;
 
-public class ProcessReadParallelStreamData implements ProcessData {
+public class ProcessReadData implements ProcessData {
 
 	private ReadService rs;
 	private ValidatorService<ReadPOJO> validatePOJO = 
 			new ReadPOJOValidatorServiceInjector().getValidator();
 
-	public ProcessReadParallelStreamData(String datapath) {
+	public ProcessReadData(String datapath) {
 		rs = new ReadServiceInjector().getService();
 		rs.getReader(datapath);
 	}

@@ -12,14 +12,14 @@ import org.junit.jupiter.api.TestMethodOrder;
 import services.read.ReadPOJO;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ProcessReadParallelStreamDataTest {
+class ProcessReadDataTest {
 
 	private static ProcessData pd;
 	private static String inputName = "src/test/resources/data/read/normalUnprocessedData.json";
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		pd = new ProcessReadParallelStreamData(inputName);
+		pd = new ProcessReadData(inputName);
 	}
 	
 	@Test

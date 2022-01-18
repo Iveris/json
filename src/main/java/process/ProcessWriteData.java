@@ -4,11 +4,11 @@ import services.read.ReadPOJO;
 import services.write.WriteService;
 import services.write.WriteServiceInjector;
 
-public class ProcessWriteParallelStreamData implements ProcessData {
+public class ProcessWriteData implements ProcessData {
 	
 	private WriteService ws = new WriteServiceInjector().getService();
 	
-	public ProcessWriteParallelStreamData(String datapath) {
+	public ProcessWriteData(String datapath) {
 		ws.getWriter(datapath);
 	}
 

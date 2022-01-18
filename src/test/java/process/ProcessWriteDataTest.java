@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import services.read.ReadPOJO;
 
-class ProcessWriteParallelStreamDataTest {
+class ProcessWriteDataTest {
 
 	private static ProcessData pd;
 	private static String outputFileName = "src/test/resources/data/temporary/processedDataTest.json";
@@ -23,7 +23,7 @@ class ProcessWriteParallelStreamDataTest {
 		rp = new ReadPOJO("http://www.lnn.com/usl", "frh", 233);
 		ReadPOJOQueue.add(rp);
 		
-		pd = new ProcessWriteParallelStreamData(outputFileName);
+		pd = new ProcessWriteData(outputFileName);
 		Thread t = new Thread(pd);
 		t.start();
 		ReadPOJOQueue.setIsReceivingInput(false);
