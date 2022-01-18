@@ -21,20 +21,12 @@ public class Summary {
 	public static int getSkipped() {
 		return skipped;
 	}
-	
 	public static void addSuccess() {
-		success++;
+		++success;
 	}
-//	public static void addSuccess(int num) {
-//		success += num;
-//	}
-	
 	public static void addSkipped() {
-		skipped++;
+		++skipped;
 	}
-//	public static void addSkipped(int num) {
-//		skipped += num;
-//	}
 	
 	@Override
 	public String toString() {

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+
 import com.google.gson.stream.JsonReader;
 
 import errors.ErrorReporter;
@@ -18,18 +20,17 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 	@Override
 	public ReadService getReader(String filename) {
 		FileInputStream inputFile = null;
-		try {
-			inputFile = new FileInputStream(filename);
-			reader = new JsonReader(new InputStreamReader(inputFile, StandardCharsets.UTF_8));
-			reader.beginArray();
+		try { inputFile = new FileInputStream(filename);
 		} catch (FileNotFoundException e) {
-			ErrorReporter.add("Input file not found" + e.getLocalizedMessage());
-			e.printStackTrace();
+			ErrorReporter.add("Input file not found");
+			LogManager.getLogger().error(e);
 			System.exit(1);
+		}
+		reader = new JsonReader(new InputStreamReader(inputFile, StandardCharsets.UTF_8));
+		try {
+			reader.beginArray();
 		} catch (IOException e) {
-			ErrorReporter.add("Error reading input file" + e.getLocalizedMessage());
-			e.printStackTrace();
-			System.exit(1);
+			readFileError(e);
 		}
 		return this;
 	}
@@ -41,7 +42,7 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 		try {
 			more = reader.hasNext();
 		} catch (IOException e) {
-			e.printStackTrace();
+			readFileError(e);
 		}
 		return more;
 	}
@@ -72,7 +73,7 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 			}
 			reader.endObject();
 		} catch (IOException e) {
-			e.printStackTrace();
+			readFileError(e);
 		}
 		return new ReadPOJO(URL, path, size);
 	}
@@ -84,9 +85,15 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 			reader.close();
 			ReadPOJOQueue.setIsReceivingInput(false);
 		} catch (IOException e) {
-			ErrorReporter.add("Error closing input file reader" + e.getLocalizedMessage());
-			e.printStackTrace();
+			ErrorReporter.add("Error closing input file reader");
+			LogManager.getLogger().error(e);
 			System.exit(1);
 		}
+	}
+	
+	private void readFileError(Exception e) {
+		ErrorReporter.add("Error reading file");
+		LogManager.getLogger().error(e);
+		System.exit(1);
 	}
 }

@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 
+import org.apache.logging.log4j.LogManager;
+
 import com.google.gson.stream.JsonWriter;
 
 import errors.ErrorReporter;
@@ -28,18 +30,16 @@ public class WriteStreamServiceImpl implements WriteService {
 		try {
 			fos = new FileOutputStream(filename, true);
 		} catch (FileNotFoundException e) {
-			ErrorReporter.add("Unable to access/create write file" + 
-								e.getLocalizedMessage());
-			e.printStackTrace();
+			ErrorReporter.add("Unable to access/create write file");
+			LogManager.getLogger().error(e);
 			System.exit(1);
 		}
 		writer = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
-//		writer.setIndent("    "); //makes the output pretty
+		writer.setIndent("    "); //makes the output pretty
 		try {
 			writer.beginObject();
 		} catch (IOException e) {
-			ErrorReporter.add("Error writing to file\n" + e.getLocalizedMessage());
-			e.printStackTrace();
+			writeFileError(e);
 		}
 		return this;
 	}
@@ -68,7 +68,7 @@ public class WriteStreamServiceImpl implements WriteService {
 				writer.name("size").value(rpojo.getSize());
 				writer.endObject();
 			} catch (IOException e) {
-				e.printStackTrace();
+				writeFileError(e);
 			}
 		}		
 	}
@@ -80,9 +80,15 @@ public class WriteStreamServiceImpl implements WriteService {
 			writer.close();
 		} catch (IOException e) {
 			ErrorReporter.add("Error closing file writer\n" + e.getLocalizedMessage());
-			e.printStackTrace();
+			LogManager.getLogger().error(e);
+			System.exit(1);
 		}
 	}
 
+	private void writeFileError(Exception e) {
+		ErrorReporter.add("Error writing to file");
+		LogManager.getLogger().error(e);
+		System.exit(1);
+	}
 
 }

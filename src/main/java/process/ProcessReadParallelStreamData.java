@@ -13,8 +13,7 @@ public class ProcessReadParallelStreamData implements ProcessData {
 	private ValidatorService<ReadPOJO> validatePOJO = 
 			new ReadPOJOValidatorServiceInjector().getValidator();
 
-	@Override
-	public void process(String datapath) {
+	public ProcessReadParallelStreamData(String datapath) {
 		rs = new ReadParallelStreamLocalFileService();
 		rs.getReader(datapath);
 	}
@@ -33,9 +32,8 @@ public class ProcessReadParallelStreamData implements ProcessData {
 	}
 
 	@Override
-	public Boolean call() throws Exception {
+	public void run() {
 		execute();
 		rs.closeReader();
-		return true;
 	}
 }

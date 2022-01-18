@@ -19,24 +19,12 @@ class ProcessReadParallelStreamDataTest {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		pd = new ProcessReadParallelStreamData();
-		pd.process(inputName);
-	}
-
-	@Test
-	@Order(1)
-	void testCallableReturn() {
-		try {
-			assertTrue(pd.call());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		pd = new ProcessReadParallelStreamData(inputName);
 	}
 	
 	@Test
-	@Order(2)
 	void testResultQueue() {
+		pd.run();
 		ReadPOJO rp1 = new ReadPOJO("http://www.lqe.com/tya", "itkbt", 164);
 		ReadPOJO rp2 = new ReadPOJO("http://www.lnn.com/usl", "frh", 233);
 		if(ReadPOJOQueue.peek().getSize() == rp1.getSize()) {

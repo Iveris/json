@@ -14,12 +14,10 @@ public class ErrorReporter {
 	}
 	
 	public static boolean add(String error) {
-		getInstance(); //ensures instantiation
 		return q.add(error);
 	}
 	
 	public static void printErrors() {
-		getInstance();
 		if(!q.isEmpty()) {
 			Iterator<String> iterator = q.iterator();
 			

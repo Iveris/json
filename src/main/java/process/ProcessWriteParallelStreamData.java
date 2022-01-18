@@ -8,8 +8,7 @@ public class ProcessWriteParallelStreamData implements ProcessData {
 	
 	private WriteService ws = new WriteStreamServiceImpl();
 	
-	@Override
-	public void process(String datapath) {
+	public ProcessWriteParallelStreamData(String datapath) {
 		ws.getWriter(datapath);
 	}
 
@@ -20,8 +19,7 @@ public class ProcessWriteParallelStreamData implements ProcessData {
 	}
 	
 	@Override
-	public Boolean call() throws Exception {
+	public void run() {
 		execute();
-		return true;
 	}
 }

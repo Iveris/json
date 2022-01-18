@@ -7,8 +7,7 @@ public class ProcessParallelWriteInjector implements ProcessDataInjector {
 
 	@Override
 	public ProcessData getService(String filename) {
-		ProcessData pd = new ProcessWriteParallelStreamData();
-		pd.process(filename);
+		ProcessData pd = new ProcessWriteParallelStreamData(filename);
 		return pd;
 	}
 

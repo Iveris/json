@@ -1,9 +1,6 @@
 package process;
 
-import java.util.concurrent.Callable;
-
-public interface ProcessData extends Callable<Boolean>{
+public interface ProcessData extends Runnable{
 	
-	public void process(String datapath);
 	public void execute();
 }

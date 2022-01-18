@@ -3,6 +3,7 @@ package app;
 import errors.ErrorReporter;
 import logger.Summary;
 import process.ProcessData;
+import process.ReadPOJOQueue;
 import process.injectors.ProcessParallelReadInjector;
 import process.injectors.ProcessParallelWriteInjector;
 
@@ -35,22 +36,9 @@ public class App {
 		ProcessData processReadData = new ProcessParallelReadInjector().getService(input);
 		ProcessData processWriteData = new ProcessParallelWriteInjector().getService("output.json");
 		
-		Thread read = new Thread(()-> {
-			try {
-				processReadData.call();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		
-		Thread write = new Thread(()-> {
-			try {
-				processWriteData.call();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		});
-		
+		Thread read = new Thread(processReadData);
+		Thread write = new Thread(processWriteData);
+		ReadPOJOQueue.getInstance();
 		read.start();
 		write.start();
 		
