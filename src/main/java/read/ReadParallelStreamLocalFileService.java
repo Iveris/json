@@ -3,7 +3,10 @@ package read;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 import org.apache.logging.log4j.LogManager;
@@ -12,13 +15,31 @@ import com.google.gson.stream.JsonReader;
 
 import errors.ErrorReporter;
 import process.ReadPOJOQueue;
+import validators.injectors.URLValidatorServiceInjector;
+import validators.services.ValidatorService;
 
 public class ReadParallelStreamLocalFileService implements ReadService {
 
 	private JsonReader reader;
+	private ValidatorService<String> isURL = new URLValidatorServiceInjector().getValidator();
 	
 	@Override
 	public ReadService getReader(String filename) {
+		if(isURL.isValid(filename)) {
+			createURLStream(filename);
+		} else {
+			createFileStream(filename);
+		}
+		try {
+			reader.beginArray();
+		} catch (IOException e) {
+			readFileError(e);
+		}
+		return this;
+	}
+
+
+	private void createFileStream(String filename) {
 		FileInputStream inputFile = null;
 		try { inputFile = new FileInputStream(filename);
 		} catch (FileNotFoundException e) {
@@ -27,12 +48,20 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 			System.exit(1);
 		}
 		reader = new JsonReader(new InputStreamReader(inputFile, StandardCharsets.UTF_8));
+	}
+
+
+	private void createURLStream(String url) {
+		InputStream in = null;
 		try {
-			reader.beginArray();
+			in = new URL(url).openStream();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		} catch (IOException e) {
-			readFileError(e);
+			e.printStackTrace();
 		}
-		return this;
+		reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
+		
 	}
 
 

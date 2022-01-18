@@ -15,6 +15,7 @@ import process.injectors.ProcessParallelWriteInjector;
 
 public class App {
 
+	private static final String DEFAULT_OUTPUT = "output.json";
 	public static void main(String...args) {
 		if(args.length == 0) {
 			System.out.println("Must provide an input file or url");
@@ -33,17 +34,17 @@ public class App {
 	}
 	
 	public static void process(String input) {
+		process(input, DEFAULT_OUTPUT);
+	}
+	public static void process(String input, String output) {
 		ProcessData processReadData = new ProcessParallelReadInjector().getService(input);
-		ProcessData processWriteData = new ProcessParallelWriteInjector().getService("output.json");
+		ProcessData processWriteData = new ProcessParallelWriteInjector().getService(output);
 		
 		Thread read = new Thread(processReadData);
 		Thread write = new Thread(processWriteData);
 		ReadPOJOQueue.getInstance();
 		read.start();
 		write.start();
-		
-	}
-	public static void process(String input, String output) {
 	}
 	
 	public static void cleanUp() {
