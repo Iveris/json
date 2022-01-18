@@ -41,7 +41,7 @@ The result is that should read and write services can be altered or substituted 
 
 Should the new implementations also require different coordination between the two processes, then the process injectors would also need to be updated to point to the new process files. Even still, the main application class would not need any updating.
 
-## Dependency injection also allows each class to be testing as independently as desired. The writing and reading implementations getting the most rigorous testing to ensure that formatting is correct and that errors and exceptions are caught and handled appropriately.
+Dependency injection also allows each class to be testing as independently as desired. The writing and reading implementations getting the most rigorous testing to ensure that formatting is correct and that errors and exceptions are caught and handled appropriately.
 
 ## Additional Features
 Summary Feature: the program completes with a summary of the number of JSON objects read and created by the read processor, and a number of any objects that were skipped. 
