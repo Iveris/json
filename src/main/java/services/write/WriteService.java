@@ -1,4 +1,4 @@
-package write;
+package services.write;
 
 public interface WriteService {
 	public WriteService getWriter(String filename);

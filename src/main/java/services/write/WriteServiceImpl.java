@@ -1,4 +1,4 @@
-package write;
+package services.write;
 
 import java.io.FileWriter;
 import java.io.IOException;

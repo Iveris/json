@@ -1,4 +1,4 @@
-package read;
+package services.read;
 
 public interface ReadService {
 	public ReadService getReader(String filename);

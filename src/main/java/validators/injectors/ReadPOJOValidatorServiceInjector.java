@@ -1,6 +1,6 @@
 package validators.injectors;
 
-import read.ReadPOJO;
+import services.read.ReadPOJO;
 import validators.implementations.ReadPOJOValidatorImpl;
 import validators.services.ValidatorService;
 

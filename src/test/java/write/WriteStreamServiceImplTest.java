@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import process.ReadPOJOQueue;
-import read.ReadPOJO;
+import services.read.ReadPOJO;
+import services.write.WriteService;
+import services.write.WriteStreamServiceImpl;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class WriteStreamServiceImplTest {
@@ -36,7 +38,7 @@ class WriteStreamServiceImplTest {
 	@Test
 	@Order(1)
 	void testFileSize() {
-		long expectedSize = 103;
+		long expectedSize = 166;
 		assertEquals(expectedSize, outputFile.length());
 	}
 

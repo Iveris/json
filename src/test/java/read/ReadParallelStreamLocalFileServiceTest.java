@@ -13,7 +13,9 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.api.MethodOrderer;
 
 import process.ReadPOJOQueue;
-import write.WriteObj;
+import services.read.ReadPOJO;
+import services.read.ReadParallelStreamLocalFileService;
+import services.write.WriteObj;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReadParallelStreamLocalFileServiceTest {

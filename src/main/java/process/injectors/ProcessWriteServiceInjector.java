@@ -3,7 +3,7 @@ package process.injectors;
 import process.ProcessData;
 import process.ProcessWriteParallelStreamData;
 
-public class ProcessParallelWriteInjector implements ProcessDataInjector {
+public class ProcessWriteServiceInjector implements ProcessDataInjector {
 
 	@Override
 	public ProcessData getService(String filename) {

@@ -1,7 +1,10 @@
-package write;
+package services.write;
 
 import java.util.Objects;
-
+/**
+ * 
+ * @author Warner
+ */
 public class WriteObj {
 	private String url;
 	private int size;

@@ -4,8 +4,8 @@ import errors.ErrorReporter;
 import logger.Summary;
 import process.ProcessData;
 import process.ReadPOJOQueue;
-import process.injectors.ProcessParallelReadInjector;
-import process.injectors.ProcessParallelWriteInjector;
+import process.injectors.ProcessReadServiceInjector;
+import process.injectors.ProcessWriteServiceInjector;
 
 /**
  * 
@@ -30,24 +30,22 @@ public class App {
 		} else {
 			process(inputFile);
 		}
-		cleanUp();
 	}
 	
 	public static void process(String input) {
 		process(input, DEFAULT_OUTPUT);
 	}
 	public static void process(String input, String output) {
-		ProcessData processReadData = new ProcessParallelReadInjector().getService(input);
-		ProcessData processWriteData = new ProcessParallelWriteInjector().getService(output);
+		
+		ProcessData processReadData = new ProcessReadServiceInjector().getService(input);
+		ProcessData processWriteData = new ProcessWriteServiceInjector().getService(output);
 		
 		Thread read = new Thread(processReadData);
 		Thread write = new Thread(processWriteData);
 		ReadPOJOQueue.getInstance();
 		read.start();
 		write.start();
-	}
-	
-	public static void cleanUp() {
+		
 		Summary.printSummary();
 		ErrorReporter.printErrors();
 	}

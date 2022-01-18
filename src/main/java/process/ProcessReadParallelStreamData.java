@@ -1,9 +1,10 @@
 package process;
 
 import logger.Summary;
-import read.ReadPOJO;
-import read.ReadParallelStreamLocalFileService;
-import read.ReadService;
+import services.read.ReadPOJO;
+import services.read.ReadParallelStreamLocalFileService;
+import services.read.ReadService;
+import services.read.ReadServiceInjector;
 import validators.injectors.ReadPOJOValidatorServiceInjector;
 import validators.services.ValidatorService;
 
@@ -14,7 +15,7 @@ public class ProcessReadParallelStreamData implements ProcessData {
 			new ReadPOJOValidatorServiceInjector().getValidator();
 
 	public ProcessReadParallelStreamData(String datapath) {
-		rs = new ReadParallelStreamLocalFileService();
+		rs = new ReadServiceInjector().getService();
 		rs.getReader(datapath);
 	}
 

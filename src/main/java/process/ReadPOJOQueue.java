@@ -2,7 +2,7 @@ package process;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import read.ReadPOJO;
+import services.read.ReadPOJO;
 
 public class ReadPOJOQueue {
 

@@ -1,4 +1,4 @@
-package write;
+package services.write;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -12,7 +12,7 @@ import com.google.gson.stream.JsonWriter;
 
 import errors.ErrorReporter;
 import process.ReadPOJOQueue;
-import read.ReadPOJO;
+import services.read.ReadPOJO;
 /**
  * 
  * @author Warner Iveris
@@ -48,14 +48,10 @@ public class WriteStreamServiceImpl implements WriteService {
 	//data object could be used to create custom write streams with some reworking in the future
 	public void write(Object data) {
 		//write to file while read is writing to ReadPOJOQueue
-		while(ReadPOJOQueue.getIsReceivingInput()) {
+		while(ReadPOJOQueue.getIsReceivingInput() || ReadPOJOQueue.getSize() > 0) {
 			writeEntries();
 		}
-		//finish writing any remaining entries
-		if(ReadPOJOQueue.getSize() > 0) {
-			writeEntries();
-		}
-			closeWriter();
+		closeWriter();
 	}
 	
 	private void writeEntries() {

@@ -8,7 +8,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import read.ReadPOJO;
+import services.read.ReadPOJO;
 
 class ProcessWriteParallelStreamDataTest {
 
@@ -31,7 +31,7 @@ class ProcessWriteParallelStreamDataTest {
 
 	@Test
 	void testFileSizes() throws Exception {
-		long expectedSize = 103;
+		long expectedSize = 166;
 		file = new File(outputFileName);
 		assertEquals(expectedSize, file.length());
 	}

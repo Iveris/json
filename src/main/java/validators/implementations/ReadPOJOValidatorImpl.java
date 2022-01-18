@@ -1,7 +1,7 @@
 package validators.implementations;
 
 import errors.ErrorReporter;
-import read.ReadPOJO;
+import services.read.ReadPOJO;
 import validators.injectors.PathValidatorServiceInjector;
 import validators.injectors.ValidatorServiceInjector;
 import validators.injectors.URLValidatorServiceInjector;

@@ -23,7 +23,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
 
 import errors.ErrorReporter;
-import read.ReadService;
+import services.read.ReadService;
+import services.write.WriteObj;
+import services.write.WriteService;
+import services.write.WriteServiceImpl;
 
 class WriteServiceImplTest {
 

@@ -1,12 +1,12 @@
 package process;
 
-import read.ReadPOJO;
-import write.WriteService;
-import write.WriteStreamServiceImpl;
+import services.read.ReadPOJO;
+import services.write.WriteService;
+import services.write.WriteServiceInjector;
 
 public class ProcessWriteParallelStreamData implements ProcessData {
 	
-	private WriteService ws = new WriteStreamServiceImpl();
+	private WriteService ws = new WriteServiceInjector().getService();
 	
 	public ProcessWriteParallelStreamData(String datapath) {
 		ws.getWriter(datapath);
