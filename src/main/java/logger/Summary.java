@@ -1,5 +1,5 @@
 package logger;
-
+//TODO test this class
 public class Summary {
 	
 	private static Summary summary;

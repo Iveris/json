@@ -13,6 +13,7 @@ import process.injectors.ProcessWriteServiceInjector;
  * Command line program to process json files
  */
 
+//TODO fix summary printing problem
 public class App {
 
 	private static final String DEFAULT_OUTPUT = "output.json";

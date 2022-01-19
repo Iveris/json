@@ -2,7 +2,7 @@ package errors;
 
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
-
+//TODO test this class
 public class ErrorReporter {
 	private static ConcurrentLinkedQueue<String> q = new ConcurrentLinkedQueue<>();
 	private static ErrorReporter er;
