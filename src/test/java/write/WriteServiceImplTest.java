@@ -3,11 +3,7 @@ package write;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,11 +14,6 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.stream.JsonReader;
-import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
-import com.warneriveris.jsonArrayToObj.services.read.ReadService;
 import com.warneriveris.jsonArrayToObj.services.write.WriteObj;
 import com.warneriveris.jsonArrayToObj.services.write.WriteService;
 import com.warneriveris.jsonArrayToObj.services.write.WriteServiceImpl;
