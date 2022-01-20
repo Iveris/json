@@ -35,6 +35,10 @@ public class ReadPOJOValidatorImpl implements ValidatorService<ReadPOJO> {
 			ErrorReporter.add("Entry skipped due to invalid path");
 			result = false;
 		}
+		if(pojo.getSize() < 0 || pojo.getSize() > Integer.MAX_VALUE) {
+			ErrorReporter.add("Entry skipped due to invalid size value");
+			result = false;
+		}
 		return result;
 	}
 
