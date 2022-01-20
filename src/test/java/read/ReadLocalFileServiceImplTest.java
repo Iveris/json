@@ -22,7 +22,7 @@ class ReadLocalFileServiceImplTest {
 
 	//MockReadService is defined below
 	private static ReadService rs = new ReadLocalFileServiceImpl();
-	private static ReadPOJO rJson; //class to put data read from ReadService into
+	private static ReadPOJO rp; //class to put data read from ReadService into
 	private static String normalData = "./src/test/resources/data/read/normalUnprocessedData.json";
 	
 	@BeforeAll
@@ -35,8 +35,8 @@ class ReadLocalFileServiceImplTest {
 		rs.getReader(normalData);
 		Map<String, WriteObj> pojoList = new HashMap<>();
 		while(rs.hasNext()) {
-			rJson = (ReadPOJO) rs.next(ReadPOJO.class);
-			pojoList.put(rJson.getPath(), new WriteObj(rJson.getUrl(), rJson.getSize()));
+			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			pojoList.put(rp.getPath(), new WriteObj(rp.getUrl(), rp.getSize()));
 		}
 		assertEquals(new WriteObj("http://www.lqe.com/tya",164), pojoList.get("itkbt"));
 		assertEquals(new WriteObj("http://www.lnn.com/usl",233), pojoList.get("frh"));
@@ -49,8 +49,8 @@ class ReadLocalFileServiceImplTest {
 		rs.getReader(xtraData);
 		Map<String, WriteObj> pojoList = new HashMap<>();
 		while(rs.hasNext()) {
-			rJson = (ReadPOJO) rs.next(ReadPOJO.class);
-			pojoList.put(rJson.getPath(), new WriteObj(rJson.getUrl(), rJson.getSize()));
+			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			pojoList.put(rp.getPath(), new WriteObj(rp.getUrl(), rp.getSize()));
 		}		
 		assertEquals(new WriteObj("http://www.lqe.com/tya",164), pojoList.get("itkbt"));
 		assertEquals(new WriteObj("http://www.lnn.com/usl",233), pojoList.get("frh"));
@@ -63,8 +63,8 @@ class ReadLocalFileServiceImplTest {
 			Map<String, WriteObj> pojoList = new HashMap<>();
 			rs.getReader(missingValues);
 			while(rs.hasNext()) {
-				rJson = (ReadPOJO) rs.next(ReadPOJO.class);
-				pojoList.put(rJson.getPath(), new WriteObj(rJson.getUrl(), rJson.getSize()));
+				rp = (ReadPOJO) rs.next(ReadPOJO.class);
+				pojoList.put(rp.getPath(), new WriteObj(rp.getUrl(), rp.getSize()));
 			}
 		});
 	}
@@ -75,8 +75,8 @@ class ReadLocalFileServiceImplTest {
 			Map<String, WriteObj> pojoList = new HashMap<>();
 			rs.getReader(missingFields);
 			while(rs.hasNext()) {
-				rJson = (ReadPOJO) rs.next(ReadPOJO.class);
-				pojoList.put(rJson.getPath(), new WriteObj(rJson.getUrl(), rJson.getSize()));
+				rp = (ReadPOJO) rs.next(ReadPOJO.class);
+				pojoList.put(rp.getPath(), new WriteObj(rp.getUrl(), rp.getSize()));
 			}
 		});
 	}
@@ -88,8 +88,8 @@ class ReadLocalFileServiceImplTest {
 			Map<String, WriteObj> pojoList = new HashMap<>();
 			rs.getReader(corruptData);
 			while(rs.hasNext()) {
-				rJson = (ReadPOJO) rs.next(ReadPOJO.class);
-				pojoList.put(rJson.getPath(), new WriteObj(rJson.getUrl(), rJson.getSize()));
+				rp = (ReadPOJO) rs.next(ReadPOJO.class);
+				pojoList.put(rp.getPath(), new WriteObj(rp.getUrl(), rp.getSize()));
 			}
 		});
 	}
