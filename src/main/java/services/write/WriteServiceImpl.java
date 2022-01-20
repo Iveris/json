@@ -9,6 +9,15 @@ import com.google.gson.GsonBuilder;
 
 import errors.ErrorReporter;
 
+/**
+ * 
+ * @author Warner Iveris
+ *
+ * This class provides the flexibility to the application to
+ * write generic data classes to a file (assuming they are
+ * validated before they are passed to this class)
+ */
+
 public class WriteServiceImpl implements WriteService {
 
 	private Gson gson = new GsonBuilder().create();
