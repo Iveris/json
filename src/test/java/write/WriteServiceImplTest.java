@@ -57,7 +57,6 @@ class WriteServiceImplTest {
 			actualSize = Files.size(actualFile);
 			expectedSize = Files.size(expectedFile);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		assertEquals(expectedSize, actualSize);
