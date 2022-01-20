@@ -24,6 +24,9 @@ public class ReadPOJOValidatorImpl implements ValidatorService<ReadPOJO> {
 	@Override
 	public boolean isValid(ReadPOJO pojo) {
 		boolean result = true;
+		if(pojo == null) {
+			return false;
+		}
 		if(!validateURL.isValid(pojo.getUrl())) {
 			ErrorReporter.add("Entry skipped due to invalid URL");
 			result = false;
