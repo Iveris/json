@@ -84,7 +84,7 @@ public class WriteStreamServiceImpl implements WriteService {
 	private void writeFileError(Exception e) {
 		ErrorReporter.add("Error writing to file");
 		LogManager.getLogger().error(e);
-		System.exit(1);
+		closeWriter();
 	}
 
 }
