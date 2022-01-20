@@ -11,12 +11,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import org.junit.jupiter.api.MethodOrderer;
+import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
+import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
+import com.warneriveris.jsonArrayToObj.services.read.ReadParallelStreamLocalFileService;
+import com.warneriveris.jsonArrayToObj.services.write.WriteObj;
 
-import process.ReadPOJOQueue;
-import services.read.ReadPOJO;
-import services.read.ReadParallelStreamLocalFileService;
-import services.write.WriteObj;
+import org.junit.jupiter.api.MethodOrderer;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReadParallelStreamLocalFileServiceTest {

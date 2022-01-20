@@ -14,10 +14,10 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import process.ReadPOJOQueue;
-import services.read.ReadPOJO;
-import services.write.WriteService;
-import services.write.WriteStreamServiceImpl;
+import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
+import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
+import com.warneriveris.jsonArrayToObj.services.write.WriteService;
+import com.warneriveris.jsonArrayToObj.services.write.WriteStreamServiceImpl;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class WriteStreamServiceImplTest {

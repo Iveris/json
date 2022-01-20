@@ -6,9 +6,9 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import validators.injectors.URLValidatorServiceInjector;
-import validators.services.ValidatorService;
-import validators.injectors.ValidatorServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.injectors.URLValidatorServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.injectors.ValidatorServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 
 class URLValidatorServiceImplTest {

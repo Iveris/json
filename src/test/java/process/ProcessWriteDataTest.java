@@ -12,7 +12,10 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import services.read.ReadPOJO;
+import com.warneriveris.jsonArrayToObj.process.ProcessData;
+import com.warneriveris.jsonArrayToObj.process.ProcessWriteData;
+import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
+import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 
 class ProcessWriteDataTest {
 

@@ -8,8 +8,8 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import validators.injectors.FileSizeValidatorServiceInjector;
-import validators.services.FileValidatorService;
+import com.warneriveris.jsonArrayToObj.validators.injectors.FileSizeValidatorServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.services.FileValidatorService;
 
 class FileSizeValidatorServiceImplTest {
 

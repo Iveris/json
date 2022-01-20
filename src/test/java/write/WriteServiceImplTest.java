@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.stream.JsonReader;
-
-import errors.ErrorReporter;
-import services.read.ReadService;
-import services.write.WriteObj;
-import services.write.WriteService;
-import services.write.WriteServiceImpl;
+import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
+import com.warneriveris.jsonArrayToObj.services.read.ReadService;
+import com.warneriveris.jsonArrayToObj.services.write.WriteObj;
+import com.warneriveris.jsonArrayToObj.services.write.WriteService;
+import com.warneriveris.jsonArrayToObj.services.write.WriteServiceImpl;
 
 class WriteServiceImplTest {
 

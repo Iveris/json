@@ -15,12 +15,12 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import errors.ErrorReporter;
-import logger.Summary;
-import process.ProcessData;
-import process.ReadPOJOQueue;
-import process.injectors.ProcessReadServiceInjector;
-import process.injectors.ProcessWriteServiceInjector;
+import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
+import com.warneriveris.jsonArrayToObj.logger.Summary;
+import com.warneriveris.jsonArrayToObj.process.ProcessData;
+import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
+import com.warneriveris.jsonArrayToObj.process.injectors.ProcessReadServiceInjector;
+import com.warneriveris.jsonArrayToObj.process.injectors.ProcessWriteServiceInjector;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AppTest {

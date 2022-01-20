@@ -5,11 +5,11 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import services.read.ReadPOJO;
-import services.read.ReadService;
-import services.read.ReadServiceInjector;
-import validators.injectors.ReadPOJOValidatorServiceInjector;
-import validators.services.ValidatorService;
+import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
+import com.warneriveris.jsonArrayToObj.services.read.ReadService;
+import com.warneriveris.jsonArrayToObj.services.read.ReadServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.injectors.ReadPOJOValidatorServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 /**
  * 
