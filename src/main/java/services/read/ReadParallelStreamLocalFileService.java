@@ -103,6 +103,7 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 			reader.endObject();
 		} catch (IOException e) {
 			readFileError(e);
+			closeReader();
 		}
 		return new ReadPOJO(URL, path, size);
 	}
@@ -117,12 +118,15 @@ public class ReadParallelStreamLocalFileService implements ReadService {
 			ErrorReporter.add("Error closing input file reader");
 			LogManager.getLogger().error(e);
 			System.exit(1);
+		} catch (IllegalStateException e) {
+			ErrorReporter.add("Error closing input file reader");
+			LogManager.getLogger().error(e);
+			System.exit(1);
 		}
 	}
 	
 	private void readFileError(Exception e) {
 		ErrorReporter.add("Error reading file");
 		LogManager.getLogger().error(e);
-		System.exit(1);
 	}
 }
