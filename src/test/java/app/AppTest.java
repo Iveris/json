@@ -9,11 +9,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 
 import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
 import com.warneriveris.jsonArrayToObj.logger.Summary;
@@ -22,7 +18,6 @@ import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.process.injectors.ProcessReadServiceInjector;
 import com.warneriveris.jsonArrayToObj.process.injectors.ProcessWriteServiceInjector;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AppTest {
 	
 	private static final String URLInputPath = "https://raw.githubusercontent.com/SuperWarnerMan/JsonDataGenerator/main/";
@@ -36,63 +31,53 @@ class AppTest {
 	private static final File f = new File(outputPath + outputFile);
 	
 	@Test
-	@Order(1)
-//	@Disabled //can only run one test at a time, so one must be disabled
 	void testOutputFileSizeLocal() throws InterruptedException {
-		Thread read = new Thread(processReadData);
-		Thread write = new Thread(processWriteData);
-		ReadPOJOQueue.getInstance();
-		read.start();
-		write.start();
-		
-		/*	without Thread.sleep() the main thread will 
-		 *	interrupt the read and write
-		 *	threads resulting in incomplete files.
-		 */
-		Thread.sleep(100);
-		
-		Path actualFile = Paths.get(outputPath + outputFile);
-		Path expectedFile = Paths.get(expected + outputFile);
-		long actualSize = 0;
-		long expectedSize = 0;
-		try {
-			actualSize = Files.size(actualFile);
-			expectedSize = Files.size(expectedFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		assertEquals(expectedSize, actualSize);
+		Thread task = new Thread(()-> {
+			Thread read = new Thread(processReadData);
+			Thread write = new Thread(processWriteData);
+			ReadPOJOQueue.getInstance();
+			read.start();
+			write.start();
+			
+			Path actualFile = Paths.get(outputPath + outputFile);
+			Path expectedFile = Paths.get(expected + outputFile);
+			long actualSize = 0;
+			long expectedSize = 0;
+			try {
+				actualSize = Files.size(actualFile);
+				expectedSize = Files.size(expectedFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assertEquals(expectedSize, actualSize);
+		});
+		task.join(100);
 	}
 	
 	@Test
-	@Order(2)
-	@Disabled //can only run one test at a time, so one must be disabled
 	void testOutputFileSizeRemoteURL() throws InterruptedException {
-		processReadData = new ProcessReadServiceInjector().getService(URLInputPath + inputFile);
-		processWriteData = new ProcessWriteServiceInjector().getService(outputPath + outputFile);
-		Thread read = new Thread(processReadData);
-		Thread write = new Thread(processWriteData);
-		ReadPOJOQueue.getInstance();
-		read.start();
-		write.start();
-		
-		/*	without Thread.sleep() the main thread will 
-		 *	interrupt the read and write
-		 *	threads resulting in incomplete files.
-		 */
-		Thread.sleep(100);
-		
-		Path actualFile = Paths.get(outputPath + outputFile);
-		Path expectedFile = Paths.get(expected + outputFile);
-		long actualSize = 0;
-		long expectedSize = 0;
-		try {
-			actualSize = Files.size(actualFile);
-			expectedSize = Files.size(expectedFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		assertEquals(expectedSize, actualSize);
+		Thread task = new Thread(()-> {
+			processReadData = new ProcessReadServiceInjector().getService(URLInputPath + inputFile);
+			processWriteData = new ProcessWriteServiceInjector().getService(outputPath + outputFile);
+			Thread read = new Thread(processReadData);
+			Thread write = new Thread(processWriteData);
+			ReadPOJOQueue.getInstance();
+			read.start();
+			write.start();
+			
+			Path actualFile = Paths.get(outputPath + outputFile);
+			Path expectedFile = Paths.get(expected + outputFile);
+			long actualSize = 0;
+			long expectedSize = 0;
+			try {
+				actualSize = Files.size(actualFile);
+				expectedSize = Files.size(expectedFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assertEquals(expectedSize, actualSize);
+		});
+		task.join(100);
 	}
 	
 	@AfterAll

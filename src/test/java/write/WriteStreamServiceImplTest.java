@@ -40,18 +40,21 @@ class WriteStreamServiceImplTest {
 	}
 	
 	@Test
-	void testFileSize() {
-		Path actualFile = Paths.get(actual);
-		Path expectedFile = Paths.get(expected);
-		long actualSize = 0;
-		long expectedSize = 0;
-		try {
-			actualSize = Files.size(actualFile);
-			expectedSize = Files.size(expectedFile);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		assertEquals(expectedSize, actualSize);
+	void testFileSize() throws InterruptedException {
+		Thread task = new Thread(()-> {
+			Path actualFile = Paths.get(actual);
+			Path expectedFile = Paths.get(expected);
+			long actualSize = 0;
+			long expectedSize = 0;
+			try {
+				actualSize = Files.size(actualFile);
+				expectedSize = Files.size(expectedFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			assertEquals(expectedSize, actualSize);
+		});
+		task.join(100);
 	}
 	
 	
