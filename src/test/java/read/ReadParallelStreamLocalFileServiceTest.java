@@ -23,7 +23,6 @@ import services.read.ReadPOJO;
 import services.read.ReadParallelStreamLocalFileService;
 import services.write.WriteObj;
 
-//TODO test this class with ReadLocalFileServiceImplTests as well
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReadParallelStreamLocalFileServiceTest {
 
