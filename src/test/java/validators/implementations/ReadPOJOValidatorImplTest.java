@@ -67,5 +67,26 @@ class ReadPOJOValidatorImplTest {
 			assertFalse(validator.isValid(rp));
 		}
 	}
+	
+	@Test
+	void testNullValue() {
+		assertFalse(validator.isValid(null));
+	}
 
+	@Test
+	void testBadURL() {
+		rp = new ReadPOJO("http\\www.com", "path", 0);
+		assertFalse(validator.isValid(rp));
+	}
+	
+	@Test
+	void testBadPath() {
+		rp = new ReadPOJO("http://google.com", "¿?*^#@", 0);
+		assertFalse(validator.isValid(rp));
+	}
+	@Test
+	void testBadSize() {
+		rp = new ReadPOJO("http://google.com", "¿?*^#@", -1);
+		assertFalse(validator.isValid(rp));
+	}
 }
