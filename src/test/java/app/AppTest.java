@@ -2,6 +2,8 @@ package app;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.io.File;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -45,10 +47,8 @@ class AppTest {
 	static void tearDownAfterClass() throws Exception {
 		Summary.printSummary();
 		ErrorReporter.printErrors();
-	}
-
-	@Test
-	void test() {
+		File f = new File(outputPath + outputFile);
+		f.delete();
 	}
 
 }
