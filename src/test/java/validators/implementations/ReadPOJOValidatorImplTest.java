@@ -2,6 +2,7 @@ package validators.implementations;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import services.read.ReadPOJO;
@@ -9,6 +10,15 @@ import services.read.ReadService;
 import services.read.ReadServiceInjector;
 import validators.injectors.ReadPOJOValidatorServiceInjector;
 import validators.services.ValidatorService;
+
+/**
+ * 
+ * @author Warner Iveris
+ *
+ * reader class will automatically shutdown program, 
+ * so before running any test, disable closeReader() method
+ * in the rs.next() method
+ */
 
 class ReadPOJOValidatorImplTest {
 
@@ -26,8 +36,7 @@ class ReadPOJOValidatorImplTest {
 	}
 	
 	@Test
-	//reader will automatically shutdown program, so must disable
-	//close reader in rs.next() method
+	@Disabled //disable closeReader() method in the rs.next() method before test
 	void testMissingValues() {
 		String missingValues = "./src/test/resources/data/read/missingValues.json";
 		rs.getReader(missingValues);
@@ -38,6 +47,7 @@ class ReadPOJOValidatorImplTest {
 	}
 	
 	@Test
+	@Disabled //disable closeReader() method in the rs.next() method before test
 	void testMissingFields() {
 		String missingFields = "./src/test/resources/data/read/missingFields.json";
 		rs.getReader(missingFields);
@@ -48,6 +58,7 @@ class ReadPOJOValidatorImplTest {
 	}
 	
 	@Test
+	@Disabled //disable closeReader() method in the rs.next() method before test
 	void testCorruptData() {
 		String corruptData = "./src/test/resources/data/read/corruptData.json";
 		rs.getReader(corruptData);
@@ -55,7 +66,6 @@ class ReadPOJOValidatorImplTest {
 			rp = (ReadPOJO) rs.next(ReadPOJO.class);
 			assertFalse(validator.isValid(rp));
 		}
-		
 	}
 
 }
