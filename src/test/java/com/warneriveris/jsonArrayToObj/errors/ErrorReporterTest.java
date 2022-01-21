@@ -2,6 +2,7 @@ package com.warneriveris.jsonArrayToObj.errors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -13,16 +14,29 @@ class ErrorReporterTest {
 
 	@Test
 	void testSingleThreadAddMethod() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
-		String firstMsg = "ERROR!!!";
-		String secondMsg = "Another ERROR!!!";
-		ErrorReporter.add(firstMsg);
-		ErrorReporter.add(secondMsg);
+		Thread task = new Thread(() -> {
+			String firstMsg = "ERROR!!!";
+			String secondMsg = "Another ERROR!!!";
+			ErrorReporter.add(firstMsg);
+			ErrorReporter.add(secondMsg);
+			
+			Field field = null;
+			try {
+				field = ErrorReporter.class.getDeclaredField("q");
+				field.setAccessible(true);
+				var que = (ConcurrentLinkedQueue<String>) field.get(ErrorReporter.class);
+				assertEquals(firstMsg, que.remove());
+				assertEquals(secondMsg, que.remove());
+			} catch (NoSuchFieldException | SecurityException e) {
+				e.printStackTrace();
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+			} catch (IllegalAccessException e) {
+				e.printStackTrace();
+			}
+		});
 		
-		var field = ErrorReporter.class.getDeclaredField("q");
-		field.setAccessible(true);
-		var que = (ConcurrentLinkedQueue<String>) field.get(ErrorReporter.class);
-		assertEquals(firstMsg, que.remove());
-		assertEquals(secondMsg, que.remove());
+		task.start();
 	}
 	
 	@Test

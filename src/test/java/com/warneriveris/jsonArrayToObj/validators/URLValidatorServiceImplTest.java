@@ -1,4 +1,4 @@
-package validators;
+package com.warneriveris.jsonArrayToObj.validators;
 
 import static org.junit.jupiter.api.Assertions.*;
 

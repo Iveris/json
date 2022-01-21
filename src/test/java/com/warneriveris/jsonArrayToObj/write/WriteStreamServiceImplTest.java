@@ -1,4 +1,4 @@
-package write;
+package com.warneriveris.jsonArrayToObj.write;
 
 import static org.junit.jupiter.api.Assertions.*;
 

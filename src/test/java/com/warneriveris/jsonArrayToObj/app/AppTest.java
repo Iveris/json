@@ -1,4 +1,4 @@
-package app;
+package com.warneriveris.jsonArrayToObj.app;
 
 import static org.junit.jupiter.api.Assertions.*;
 

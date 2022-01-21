@@ -1,4 +1,4 @@
-package process;
+package com.warneriveris.jsonArrayToObj.process;
 
 import static org.junit.jupiter.api.Assertions.*;
 

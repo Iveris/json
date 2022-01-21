@@ -1,4 +1,4 @@
-package read;
+package com.warneriveris.jsonArrayToObj.read;
 
 import static org.junit.jupiter.api.Assertions.*;
 
