@@ -1,6 +1,6 @@
 ﻿# What this Program does:
 
-This command line program parses JSON arrays into a single JSON object with key value pairs representing each object in the original array. The current implementation is specific to turning turning this particular data set:
+This command line program parses JSON arrays into a single JSON object with unique key value pairs representing each object in the original array. The current implementation is specific to turning turning this particular data set:
 
 <p>
 [ <br>
