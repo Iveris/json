@@ -10,12 +10,13 @@ import org.apache.logging.log4j.LogManager;
 
 import com.google.gson.stream.JsonWriter;
 import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
+import com.warneriveris.jsonArrayToObj.logger.Summary;
 import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 /**
  * 
  * @author Warner Iveris
- * This is a parallel stream implementation where the read stream
+ * This is a concurrent implementation where the read stream
  * writes to the ReadPOJOQueue and the write stream shares that
  * object to grab entries. 
  */
@@ -71,6 +72,8 @@ public class WriteStreamServiceImpl implements WriteService {
 	@Override
 	public void closeWriter() {
 		try {
+			Summary.printSummary();
+			ErrorReporter.printErrors();
 			writer.endObject();
 			writer.close();
 		} catch (IOException e) {
