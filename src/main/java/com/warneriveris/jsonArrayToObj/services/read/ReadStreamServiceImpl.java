@@ -17,7 +17,7 @@ import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.validators.injectors.URLValidatorServiceInjector;
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
-public class ReadParallelStreamLocalFileService implements ReadService {
+public class ReadStreamServiceImpl implements ReadService {
 
 	private JsonReader reader;
 	private ValidatorService<String> isURL = new URLValidatorServiceInjector().getValidator();

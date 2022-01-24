@@ -13,7 +13,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 
 import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
-import com.warneriveris.jsonArrayToObj.services.read.ReadParallelStreamLocalFileService;
+import com.warneriveris.jsonArrayToObj.services.read.ReadStreamServiceImpl;
 import com.warneriveris.jsonArrayToObj.services.write.WriteObj;
 
 import org.junit.jupiter.api.MethodOrderer;
@@ -21,7 +21,7 @@ import org.junit.jupiter.api.MethodOrderer;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ReadParallelStreamLocalFileServiceTest {
 
-	private static ReadParallelStreamLocalFileService rs = new ReadParallelStreamLocalFileService();
+	private static ReadStreamServiceImpl rs = new ReadStreamServiceImpl();
 	private static String inputName = "src/test/resources/data/read/normalUnprocessedData.json";
 	private static String inputURLName = "https://raw.githubusercontent.com/SuperWarnerMan/json/main/src/test/resources/data/read/normalUnprocessedData.json";
 	private static ReadPOJO rp;

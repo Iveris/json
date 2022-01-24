@@ -6,7 +6,7 @@ public class ReadServiceInjector implements ServiceInjector<ReadService> {
 
 	@Override
 	public ReadService getService() {
-		return new ReadParallelStreamLocalFileService();
+		return new ReadStreamServiceImpl();
 	}
 
 }
