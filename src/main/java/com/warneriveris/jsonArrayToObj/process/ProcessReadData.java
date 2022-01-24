@@ -24,7 +24,7 @@ public class ProcessReadData implements ProcessData {
 			ReadPOJO rp = (ReadPOJO) rs.next(ReadPOJO.class);
 			if(validatePOJO.isValid(rp)) {
 				ReadPOJOQueue.add(rp);
-				Summary.addSuccess();
+				Summary.addProcessed();
 			} else {
 				Summary.addSkipped();
 			}

@@ -1,7 +1,5 @@
 package com.warneriveris.jsonArrayToObj.app;
 
-import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
-import com.warneriveris.jsonArrayToObj.logger.Summary;
 import com.warneriveris.jsonArrayToObj.process.ProcessData;
 import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.process.injectors.ProcessReadServiceInjector;
@@ -13,7 +11,6 @@ import com.warneriveris.jsonArrayToObj.process.injectors.ProcessWriteServiceInje
  * Command line program to process json files
  */
 
-//TODO fix summary printing problem
 public class App {
 
 	private static final String DEFAULT_OUTPUT = "output.json";
@@ -37,7 +34,6 @@ public class App {
 		process(input, DEFAULT_OUTPUT);
 	}
 	public static void process(String input, String output) {
-		
 		ProcessData processReadData = new ProcessReadServiceInjector().getService(input);
 		ProcessData processWriteData = new ProcessWriteServiceInjector().getService(output);
 		
@@ -46,8 +42,5 @@ public class App {
 		ReadPOJOQueue.getInstance();
 		read.start();
 		write.start();
-		
-		Summary.printSummary();
-		ErrorReporter.printErrors();
 	}
 }

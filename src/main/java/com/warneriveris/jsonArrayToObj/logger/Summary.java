@@ -1,39 +1,35 @@
 package com.warneriveris.jsonArrayToObj.logger;
-//TODO test this class
 public class Summary {
 	
-	private static Summary summary;
-	private static int success = 0;
-	private static int skipped = 0;
+	private static Summary summary = new Summary();
+	private static volatile int processed = 0;
+	private static volatile int skipped = 0;
 	
 	private Summary() {}
 	
 	public static Summary getInstance() {
-		if(summary == null) { 
-			summary = new Summary(); 
-		}
 		return summary;
 	}
 	
-	public static int getSuccess() {
-		return success;
+	public static int getProcessed() {
+		return processed;
 	}
 	public static int getSkipped() {
 		return skipped;
 	}
-	public static void addSuccess() {
-		++success;
+	public static synchronized void addProcessed() {
+		++processed;
 	}
-	public static void addSkipped() {
+	public static synchronized void addSkipped() {
 		++skipped;
 	}
 	
 	@Override
 	public String toString() {
-		return "Processed: " + getSuccess() +"\tSkipped: " + getSkipped() + "\n";
+		return "Processed: " + getProcessed() +"\tSkipped: " + getSkipped() + "\n";
 	}
 	
 	public static void printSummary() {
-		System.out.printf("Processed: %d\tSkipped: %d%n", getSuccess(), getSkipped());
+		System.out.printf("Processed: %d\tSkipped: %d%n", getProcessed(), getSkipped());
 	}
 }
