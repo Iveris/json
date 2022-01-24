@@ -8,9 +8,6 @@ import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import com.warneriveris.jsonArrayToObj.process.ProcessData;
-import com.warneriveris.jsonArrayToObj.process.ProcessReadData;
-import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
