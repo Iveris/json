@@ -2,7 +2,7 @@
 <Configuration status="debug" packages="">
     <Appenders>
          <File name="fout" fileName="errors.log" append="true">
-            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n" />
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %m%n%throwable%n" />
          </File>
    </Appenders>
    <Loggers>

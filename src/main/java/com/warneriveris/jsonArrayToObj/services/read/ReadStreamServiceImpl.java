@@ -42,8 +42,7 @@ public class ReadStreamServiceImpl implements ReadService {
 		FileInputStream inputFile = null;
 		try { inputFile = new FileInputStream(filename);
 		} catch (FileNotFoundException e) {
-			ErrorReporter.add("Input file not found");
-			LogManager.getLogger().error(e);
+			openFileError(e);
 			System.exit(1);
 		}
 		reader = new JsonReader(new InputStreamReader(inputFile, StandardCharsets.UTF_8));
@@ -55,9 +54,9 @@ public class ReadStreamServiceImpl implements ReadService {
 		try {
 			in = new URL(url).openStream();
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			openFileError(e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			openFileError(e);
 		}
 		reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
 		
@@ -114,18 +113,27 @@ public class ReadStreamServiceImpl implements ReadService {
 			reader.close();
 			ReadPOJOQueue.setIsReceivingInput(false);
 		} catch (IOException e) {
-			ErrorReporter.add("Error closing input file reader");
-			LogManager.getLogger().error(e);
+			String msg = "Error closing input file reader";
+			ErrorReporter.add(msg);
+			LogManager.getLogger().error(msg, e);
 			System.exit(1);
 		} catch (IllegalStateException e) {
-			ErrorReporter.add("Error closing input file reader");
-			LogManager.getLogger().error(e);
+			String msg = "Error closing input file reader";
+			ErrorReporter.add(msg);
+			LogManager.getLogger().error(msg, e);
 			System.exit(1);
 		}
 	}
 	
 	private void readFileError(Exception e) {
-		ErrorReporter.add("Error reading file");
-		LogManager.getLogger().error(e);
+		String msg = "Error reading file";
+		ErrorReporter.add(msg);
+		LogManager.getLogger().error(msg, e);
+	}
+	
+	private void openFileError(Exception e) {
+		String msg = "Error opening input source";
+		ErrorReporter.add(msg);
+		LogManager.getLogger().error(msg, e);
 	}
 }

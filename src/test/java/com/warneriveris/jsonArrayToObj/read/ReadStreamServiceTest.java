@@ -19,10 +19,10 @@ import com.warneriveris.jsonArrayToObj.services.write.WriteObj;
 import org.junit.jupiter.api.MethodOrderer;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class ReadParallelStreamLocalFileServiceTest {
+class ReadStreamServiceTest {
 
 	private static ReadStreamServiceImpl rs = new ReadStreamServiceImpl();
-	private static String inputName = "src/test/resources/data/read/normalUnprocessedData.json";
+	private static String inputName = "src";
 	private static String inputURLName = "https://raw.githubusercontent.com/SuperWarnerMan/json/main/src/test/resources/data/read/normalUnprocessedData.json";
 	private static ReadPOJO rp;
 	private static Map<String, WriteObj> POJOMap = new HashMap<>();
