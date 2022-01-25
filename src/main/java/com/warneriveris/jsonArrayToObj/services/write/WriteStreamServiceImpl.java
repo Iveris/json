@@ -15,12 +15,11 @@ import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 
 /**
+ * Uses JsonWriter from the Gson stream library to create a file containing a
+ * single JSON object that contains path variables as fields with corresponding
+ * URL and size values.
  * 
  * @author Warner Iveris
- * 
- *         Uses JsonWriter from the Gson stream library to create a file
- *         containing a single JSON object that contains path variables as
- *         fields with corresponding URL and size values.
  * 
  */
 public class WriteStreamServiceImpl implements WriteService {
@@ -70,7 +69,7 @@ public class WriteStreamServiceImpl implements WriteService {
 	 * in ReadPOJOQueue determines when the writer will close;
 	 */
 	@Override
-	public void write(Object data) {
+	public void write() {
 		// writes to file while read service fills the ReadPOJOQueue
 		while (ReadPOJOQueue.getIsReceivingInput() || ReadPOJOQueue.getSize() > 0) {
 			writeEntries();

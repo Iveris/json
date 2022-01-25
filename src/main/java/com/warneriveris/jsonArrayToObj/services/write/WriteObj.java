@@ -3,7 +3,7 @@ package com.warneriveris.jsonArrayToObj.services.write;
 import java.util.Objects;
 /**
  * 
- * @author Warner
+ * @author Warner Iveris
  */
 public class WriteObj {
 	private String url;

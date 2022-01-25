@@ -25,7 +25,7 @@ class WriteStreamServiceImplTest {
 	private static WriteService ws = new WriteStreamServiceImpl();
 	private static String actual = "src/test/resources/data/temporary/actual.json";
 	private static String expected = "src/test/resources/data/write/processedDataTest.json";
-	private static Thread t = new Thread(() -> { ws.write(ReadPOJO.class); });
+	private static Thread t = new Thread(() -> { ws.write(); });
 	private static File outputFile = new File(actual);
 	
 	@BeforeAll

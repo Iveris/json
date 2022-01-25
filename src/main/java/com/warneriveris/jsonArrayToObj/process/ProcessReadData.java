@@ -9,7 +9,7 @@ import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 /**
  * Instantiates the read service and coordinates its output so that only 
- * validated data is shared with write services. Implements the ProcessData
+ * validated data is shared with write services. Implements the Process Data
  * interface which itself implements the Runnable interface in order to allow
  * all read operations to be encapsulated into a single thread.
  * 
@@ -19,25 +19,25 @@ import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 public class ProcessReadData implements ProcessData {
 
-	private ReadService rs;
+	private ReadService rs = new ReadServiceInjector().getService();
 	private ValidatorService<ReadPOJO> validatePOJO = 
 			new ReadPOJOValidatorServiceInjector().getValidator();
 
 	/**
-	 * Instantiates read service with path to input file provided by the user
+	 * Instantiates read service with input file path provided by the user
 	 * 
 	 * @param datapath	a string representing the path to the input file
 	 */
 	public ProcessReadData(String datapath) {
 		ReadPOJOQueue.getInstance();
-		rs = new ReadServiceInjector().getService();
 		rs.getReader(datapath);
 	}
 
 
 	/**
 	 * Coordinates the validation of data from the read service with the exchange
-	 * of that data to the write service via a shared Concurrent Linked Queue
+	 * of that data to the write service via the shared Concurrent Linked Queue
+	 * in the ReadPOJOQueue class
 	 */
 	@Override
 	public void execute() {
@@ -54,7 +54,8 @@ public class ProcessReadData implements ProcessData {
 
 	/**
 	 * Method to encapsulate read process into a single runnable thread which
-	 * ends by closing the pre-instantiated reader.
+	 * ends by closing the reader that was instantiated in the Process Read 
+	 * Data method above
 	 */
 	@Override
 	public void run() {

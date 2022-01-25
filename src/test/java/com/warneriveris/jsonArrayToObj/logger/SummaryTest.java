@@ -42,7 +42,7 @@ class SummaryTest {
 	void testSkippedAndProcessedMethods() throws InterruptedException, IOException {
 		Thread read = new Thread(processReadData);
 		read.start();
-		writeData.write(ReadPOJO.class);
+		writeData.write();
 		Thread.sleep(10);
 		
 		assertEquals(2, Summary.getSkipped());
@@ -87,7 +87,7 @@ class MockWriteServiceImpl implements WriteService {
 		return this;
 	}
 	@Override
-	public void write(Object data) {
+	public void write() {
 		while(ReadPOJOQueue.getIsReceivingInput() || ReadPOJOQueue.getSize() > 0) {
 			writeEntries();
 		}

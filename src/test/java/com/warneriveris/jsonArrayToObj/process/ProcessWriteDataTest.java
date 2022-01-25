@@ -32,6 +32,7 @@ class ProcessWriteDataTest {
 		Thread t = new Thread(pd);
 		t.start();
 		ReadPOJOQueue.setIsReceivingInput(false);
+		Thread.sleep(10);
 	}
 
 	@Test
