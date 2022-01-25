@@ -17,11 +17,35 @@ import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.validators.injectors.URLValidatorServiceInjector;
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
+/**
+ * 
+ * @author Warner Iveris
+ *
+ * Uses JsonReader class from the Gson library to parse an array of JSON objects
+ * from an input file that is passed to the program by the user. These objects
+ * are then returned individually to the method caller.
+ */
+
 public class ReadStreamServiceImpl implements ReadService {
 
+	
 	private JsonReader reader;
+	
+	/**
+	 * Validates URL expressions using the Apache Commons routines validator.
+	 */
 	private ValidatorService<String> isURL = new URLValidatorServiceInjector().getValidator();
 	
+	
+	/**
+	 * Initializes reader with file name and path provided by the user. A URL
+	 * validator is used to determine if the file path is to a local file or to
+	 * a remote one. Once that is determined the appropriate stream is created to
+	 * read the file. Because the files contain an array of objects, the opening
+	 * array bracket [ must be accounted for, or there will be a read error.
+	 * 
+	 * @param filename	string containing the path and name of the file to be read
+	 */
 	@Override
 	public ReadService getReader(String filename) {
 		if(isURL.isValid(filename)) {
@@ -30,7 +54,7 @@ public class ReadStreamServiceImpl implements ReadService {
 			createFileStream(filename);
 		}
 		try {
-			reader.beginArray();
+			reader.beginArray(); // parses the [ at the beginning of the array
 		} catch (IOException e) {
 			readFileError(e);
 		}
@@ -38,6 +62,14 @@ public class ReadStreamServiceImpl implements ReadService {
 	}
 
 
+	/**
+	 * Creates a JsonReader for reading the input file. Begins by creating a 
+	 * FileInputStream to a local file, then uses that stream to create an 
+	 * InputStreamReader which is consumed in the creation of the JsonReader object.
+	 * Returns the initialized JsonReader.
+	 * 
+	 * @param filename	string containing the path and name of the file to be read
+	 */
 	private void createFileStream(String filename) {
 		FileInputStream inputFile = null;
 		try { inputFile = new FileInputStream(filename);
@@ -48,7 +80,14 @@ public class ReadStreamServiceImpl implements ReadService {
 		reader = new JsonReader(new InputStreamReader(inputFile, StandardCharsets.UTF_8));
 	}
 
-
+	/**
+	 * Creates a JsonReader for reading the remote input file. Begins by creating 
+	 * an InputStream to a file located at the URL string passed by the user. Then 
+	 * uses that stream to create an InputStreamReader which is consumed in the 
+	 * creation of the JsonReader object. Returns initialized JsonReader.
+	 * 
+	 * @param url	string containing the path and name of the remote file to be read
+	 */
 	private void createURLStream(String url) {
 		InputStream in = null;
 		try {
@@ -59,10 +98,14 @@ public class ReadStreamServiceImpl implements ReadService {
 			openFileError(e);
 		}
 		reader = new JsonReader(new InputStreamReader(in, StandardCharsets.UTF_8));
-		
 	}
 
 
+	/**
+	 * Determines if there are more JSON objects to read from the input file and
+	 * returns true if there are more objects left to read, and false if the end
+	 * of the file has been reached.
+	 */
 	@Override
 	public boolean hasNext() {
 		boolean more = false;
@@ -74,8 +117,12 @@ public class ReadStreamServiceImpl implements ReadService {
 		return more;
 	}
 
+	/**
+	 * Reads the next JSON object in the input file and records the values of each
+	 * field in a POJO. This POJO is then returned to the caller.
+	 */
 	@Override
-	public Object next(Object type) {
+	public ReadPOJO next() {
 		String URL = null;
 		String path = null;
 		int size = 0;
@@ -106,6 +153,11 @@ public class ReadStreamServiceImpl implements ReadService {
 		return new ReadPOJO(URL, path, size);
 	}
 
+	/**
+	 * Before closing the reader, the end of the array ] must be accounted for.
+	 * Once the reader is closed, a boolean value is set to false in the shared
+	 * ReadPOJOQueue object that signals no more read data will be entered.
+	 */
 	@Override
 	public void closeReader() {
 		try {
@@ -125,12 +177,24 @@ public class ReadStreamServiceImpl implements ReadService {
 		}
 	}
 	
+	/**
+	 * Simplifies reporting common read file errors to the user and recording 
+	 * the stack trace information to a log for developers.
+	 * 
+	 * @param e	an exception used to provide a stack trace for the log file
+	 */
 	private void readFileError(Exception e) {
 		String msg = "Error reading file";
 		ErrorReporter.add(msg);
 		LogManager.getLogger().error(msg, e);
 	}
 	
+	/**
+	 * Simplifies reporting common read file errors to the user and recording 
+	 * the stack trace information to a log for developers.
+	 * 
+	 * @param e	an exception used to provide a stack trace for the log file
+	 */
 	private void openFileError(Exception e) {
 		String msg = "Error opening input source";
 		ErrorReporter.add(msg);

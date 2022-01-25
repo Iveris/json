@@ -33,7 +33,7 @@ class ReadStreamServiceTest {
 		rs.getReader(inputName);
 		ReadPOJO rp;
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			ReadPOJOQueue.add(rp);
 		}
 		int expected = 2;
@@ -58,7 +58,7 @@ class ReadStreamServiceTest {
 		rs.getReader(inputURLName);
 		ReadPOJO rp;
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			ReadPOJOQueue.add(rp);
 		}
 		while(ReadPOJOQueue.getSize() > 0) {
@@ -77,7 +77,7 @@ class ReadStreamServiceTest {
 		//ignores extra fields and only enters predefined fields
 		rs.getReader(xtraData);
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			POJOMap.put(rp.getPath(), new WriteObj(rp.getUrl(), rp.getSize()));
 		}		
 		assertEquals(new WriteObj("http://www.lqe.com/tya",164), POJOMap.get("itkbt"));

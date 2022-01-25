@@ -30,7 +30,7 @@ class ReadPOJOValidatorImplTest {
 	void testNormalData() {
 		rs.getReader("src/test/resources/data/read/normalUnprocessedData.json");
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			assertTrue(validator.isValid(rp));
 		}
 	}
@@ -41,7 +41,7 @@ class ReadPOJOValidatorImplTest {
 		String missingValues = "./src/test/resources/data/read/missingValues.json";
 		rs.getReader(missingValues);
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			assertFalse(validator.isValid(rp));
 		}
 	}
@@ -52,7 +52,7 @@ class ReadPOJOValidatorImplTest {
 		String missingFields = "./src/test/resources/data/read/missingFields.json";
 		rs.getReader(missingFields);
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			assertFalse(validator.isValid(rp));
 		}
 	}
@@ -63,7 +63,7 @@ class ReadPOJOValidatorImplTest {
 		String corruptData = "./src/test/resources/data/read/corruptData.json";
 		rs.getReader(corruptData);
 		while(rs.hasNext()) {
-			rp = (ReadPOJO) rs.next(ReadPOJO.class);
+			rp = rs.next();
 			assertFalse(validator.isValid(rp));
 		}
 	}
