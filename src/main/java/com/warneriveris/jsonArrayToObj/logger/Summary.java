@@ -48,10 +48,15 @@ public class Summary {
 
 	/**
 	 * Increments the processed variable by one. Method is synchronized to ensure
-	 * data integrity across multiple threads
+	 * data integrity across multiple threads. Also prints out a message
+	 * to the user every time another 500 variables are processed to provide
+	 * feedback to the user that progress is being made.
 	 */
 	public static synchronized void addProcessed() {
 		++processed;
+		if(processed % 500 == 0) {
+			System.out.println(processed + " JSON objects read so far!");
+		}
 	}
 
 	/**

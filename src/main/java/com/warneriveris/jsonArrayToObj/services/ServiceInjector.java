@@ -2,7 +2,8 @@ package com.warneriveris.jsonArrayToObj.services;
 
 /**
  * Generic service injector interface to allow various services to be
- * injected into a class with only one injector instance.
+ * injected in a uniform manner so that one injector instance can be used
+ * to inject multiple services into a class if need be.
  * 
  * @author Warner Iveris
  *

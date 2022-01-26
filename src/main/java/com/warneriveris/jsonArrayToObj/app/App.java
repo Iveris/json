@@ -31,7 +31,14 @@ public class App {
 	 */
 	public static void main(String[] args) {
 		if (args.length == 0) {
-			System.out.println("Must provide an input file or url path");
+			String instructions = "An input file or url path must be provided "
+					+ "to run this program.%nFor Example, the program can process"
+					+ " the input file to a specific output file (the output file "
+					+ "need not exist beforehand) by typing:%n./app "
+					+ "[input file path] [output file path]%nor the program can "
+					+ "write to a default \"output.json\" file by typing:%n"
+					+ "./app [input file path]";
+			System.out.println(String.format(instructions));
 			System.exit(1);
 		}
 

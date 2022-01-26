@@ -48,8 +48,9 @@ public class WriteStreamServiceImpl implements WriteService {
 		try {
 			fos = new FileOutputStream(filename, true);
 		} catch (FileNotFoundException e) {
-			ErrorReporter.add("Unable to access/create write file");
-			LogManager.getLogger().error(e);
+			String msg = "Unable to access/create write file";
+			ErrorReporter.add(msg);
+			LogManager.getLogger().error(msg, e);
 			System.exit(1);
 		}
 		writer = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
