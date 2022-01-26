@@ -1,13 +1,13 @@
 package com.warneriveris.jsonArrayToObj.validators.services;
 
 /**
- * Interface that defines the expected behavior of every validation service in 
- * this application that only requires a single argument.
+ * Generic interface that defines the expected behavior of more specific
+ * validation service interfaces in this application.
  * 
  * @author Warner Iveris
  *
- * @param <T>	generally T will be a string, but other types can be implemented
- * 				should the need arise.
+ * @param <T> the object type that will be validated by the implemented
+ *            validation service.
  */
 public interface ValidatorService<T> {
 	boolean isValid(T t);

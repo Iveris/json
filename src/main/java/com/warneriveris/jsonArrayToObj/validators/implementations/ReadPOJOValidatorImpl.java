@@ -1,62 +1,52 @@
 package com.warneriveris.jsonArrayToObj.validators.implementations;
 
-import org.apache.logging.log4j.LogManager;
-
 import com.warneriveris.jsonArrayToObj.errors.ErrorReporter;
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 import com.warneriveris.jsonArrayToObj.validators.injectors.FileSizeValidatorServiceInjector;
-import com.warneriveris.jsonArrayToObj.validators.injectors.FileValidatorServiceInjector;
 import com.warneriveris.jsonArrayToObj.validators.injectors.PathValidatorServiceInjector;
+import com.warneriveris.jsonArrayToObj.validators.injectors.URLValidatorServiceInjector;
 import com.warneriveris.jsonArrayToObj.validators.injectors.UniqueKeyValidatorInjector;
 import com.warneriveris.jsonArrayToObj.validators.injectors.ValidatorServiceInjector;
-import com.warneriveris.jsonArrayToObj.validators.services.FileValidatorService;
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 public class ReadPOJOValidatorImpl implements ValidatorService<ReadPOJO> {
 
 	ValidatorService<String> validatePath;
-	FileValidatorService<Integer, String> validateRemoteFileSize;
 	ValidatorService<String> uniqueKey;
+	ValidatorService<String> validateURL;
+	ValidatorService<Integer> validateFileSize;
 	ValidatorServiceInjector<String> injector;
-	FileValidatorServiceInjector<Integer, String> finjector = new FileSizeValidatorServiceInjector();
-	
+
 	public ReadPOJOValidatorImpl() {
 		injector = new PathValidatorServiceInjector();
 		validatePath = injector.getValidator();
 		injector = new UniqueKeyValidatorInjector<>();
 		uniqueKey = injector.getValidator();
+		injector = new URLValidatorServiceInjector();
+		validateURL = injector.getValidator();
 		injector = null;
-		validateRemoteFileSize = finjector.getValidator();
+		validateFileSize = new FileSizeValidatorServiceInjector().getValidator();
 	}
-	
+
 	@Override
 	public boolean isValid(ReadPOJO pojo) {
 		boolean result = true;
-		if(pojo == null) {
+		if (pojo == null) {
 			return false;
 		}
-		if(!validatePath.isValid(pojo.getPath())) {
+		if (!validatePath.isValid(pojo.getPath())) {
 			ErrorReporter.add("Entry skipped due to invalid path");
 			result = false;
 		}
-		if(!uniqueKey.isValid(pojo.getPath())) {
-			ErrorReporter.add("Entry skipped because there "
-					+ "is already a path labelled " + pojo.getPath());
+		if (!uniqueKey.isValid(pojo.getPath())) {
+			ErrorReporter.add("Entry skipped because there " + "is already a path labelled " + pojo.getPath());
 			result = false;
 		}
-		if(pojo.getSize() < 0 || pojo.getSize() > Integer.MAX_VALUE) {
+		if (!validateURL.isValid(pojo.getUrl())) {
+			result = false;
+		}
+		if (!validateFileSize.isValid(pojo.getSize())) {
 			ErrorReporter.add("Entry skipped due to invalid size value");
-			result = false;
-		}
-		try {
-			if(!validateRemoteFileSize.isValid(pojo.getSize(), pojo.getUrl())) {
-				result = false;
-			}
-		} catch (Exception e) {
-			String msg = "Entry skipped due to error validating remote file URL "
-					+ "or remote file size";
-			ErrorReporter.add(msg);
-			LogManager.getLogger().error(msg, e);
 			result = false;
 		}
 		return result;

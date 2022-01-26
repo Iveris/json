@@ -8,15 +8,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.warneriveris.jsonArrayToObj.validators.injectors.FileSizeValidatorServiceInjector;
-import com.warneriveris.jsonArrayToObj.validators.services.FileValidatorService;
+import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 class FileSizeValidatorServiceImplTest {
 
-	static String dummyData = "https://raw.githubusercontent.com/SuperWarnerMan/"
-			+ "JsonDataGenerator/main/src/main/resources/jsonData.txt";
-	static String largerDataFile = "https://raw.githubusercontent.com/SuperWarnerMan/"
-			+ "json/main/src/test/resources/data/unprocessed/50kUnprocessedPretty.json";
-	static FileValidatorService<Integer, String> validator = null;
+	static ValidatorService<Integer> validator = null;
 	static FileSizeValidatorServiceInjector injector = new FileSizeValidatorServiceInjector();
 
 	@BeforeAll
@@ -26,13 +22,12 @@ class FileSizeValidatorServiceImplTest {
 
 	@Test
 	void successTest() throws Exception {
-		assertTrue(validator.isValid(201, dummyData));
-		assertTrue(validator.isValid(4421202, largerDataFile));
+		assertTrue(validator.isValid(117));
 	}
 
 	@Test
 	void failTest() throws Exception {
-		assertFalse(validator.isValid(200, dummyData));
+		assertFalse(validator.isValid(-5));
 	}
 
 	@AfterAll

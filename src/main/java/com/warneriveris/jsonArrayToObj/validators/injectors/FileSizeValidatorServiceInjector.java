@@ -1,12 +1,12 @@
 package com.warneriveris.jsonArrayToObj.validators.injectors;
 
 import com.warneriveris.jsonArrayToObj.validators.implementations.FileSizeValidatorServiceImpl;
-import com.warneriveris.jsonArrayToObj.validators.services.FileValidatorService;
+import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
-public class FileSizeValidatorServiceInjector implements FileValidatorServiceInjector<Integer, String> {
+public class FileSizeValidatorServiceInjector implements ValidatorServiceInjector<Integer> {
 
 	@Override
-	public FileValidatorService<Integer, String> getValidator() {
+	public ValidatorService<Integer> getValidator() {
 		return new FileSizeValidatorServiceImpl();
 	}
 }
