@@ -10,6 +10,12 @@ import com.warneriveris.jsonArrayToObj.validators.injectors.URLValidatorServiceI
 import com.warneriveris.jsonArrayToObj.validators.injectors.ValidatorServiceInjector;
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
+/**
+ * SUT: {@link URLValidatorServiceImpl}
+ * 
+ * @author Warner Iveris
+ *
+ */
 
 class URLValidatorServiceImplTest {
 

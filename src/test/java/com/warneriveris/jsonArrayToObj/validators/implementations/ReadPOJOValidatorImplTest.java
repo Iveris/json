@@ -12,6 +12,7 @@ import com.warneriveris.jsonArrayToObj.validators.injectors.ReadPOJOValidatorSer
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
 /**
+ * SUT: {@link ReadPOJOValidatorImpl}
  * 
  * @author Warner Iveris
  *

@@ -11,6 +11,12 @@ import org.junit.jupiter.api.TestMethodOrder;
 import com.warneriveris.jsonArrayToObj.validators.injectors.UniqueKeyValidatorInjector;
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
+/**
+ * SUT: {@link UniqueKeyValidatorImpl}
+ * 
+ * @author Warner Iveris
+ *
+ */
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class UniqueKeyValidatorImplTest {
 

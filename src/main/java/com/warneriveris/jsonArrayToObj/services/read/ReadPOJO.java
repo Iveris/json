@@ -2,6 +2,13 @@ package com.warneriveris.jsonArrayToObj.services.read;
 
 import java.util.Objects;
 
+/**
+ * Class to encapsulate data read from input file as a single entry. It is used 
+ * to transfer a single JSON object entry to validation and write services.
+ * 
+ * @author Warner Iveris
+ */
+
 public class ReadPOJO {
 	private String url;
 	private String path;

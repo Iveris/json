@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
- * Provides a user readable summary of errors encountered in the process of
- * running the application. Uses a Concurrent Linked Queue so that errors
- * occurring in read or write services can both be recorded without loss. The
- * summary is printed to the console at the very end of the program if and only
- * if any errors are held in the queue.
+ * Provides a non-technical summary of errors encountered in the process of
+ * running the application for the user. Uses a Concurrent Linked Queue so that
+ * errors occurring in read or write services can both be recorded without loss.
+ * The summary is printed to the console at the very end of the program if and
+ * only if any errors are held in the queue.
  * 
  * @author Warner Iveris
  *

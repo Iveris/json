@@ -10,6 +10,12 @@ import org.junit.jupiter.api.Test;
 import com.warneriveris.jsonArrayToObj.validators.injectors.FileSizeValidatorServiceInjector;
 import com.warneriveris.jsonArrayToObj.validators.services.ValidatorService;
 
+/**
+ * SUT: {@link FileSizeValidatorServiceImpl}
+ * 
+ * @author Warner Iveris
+ *
+ */
 class FileSizeValidatorServiceImplTest {
 
 	static ValidatorService<Integer> validator = null;

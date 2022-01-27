@@ -24,6 +24,12 @@ import com.warneriveris.jsonArrayToObj.process.injectors.ProcessReadServiceInjec
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 import com.warneriveris.jsonArrayToObj.services.write.WriteService;
 
+/**
+ * SUT: {@link Summary}
+ * 
+ * @author Warner Iveris
+ *
+ */
 class SummaryTest {
 
 	private static final String input = "src/test/resources/data/logging/25UnprocessedPretty3RepeatedPaths.json";
@@ -38,17 +44,22 @@ class SummaryTest {
 		writeData = new MockWriteServiceImpl().getWriter(output);
 	}
 
+	/*
+	 * One could test the skipped and processed methods independently, but they are
+	 * interlinked in the sense that if 500 JSON objects are present in the input
+	 * array, skipped should always = 500 - processed, and conversely, processed
+	 * should always = 500 - skipped.
+	 */
 	@Test
 	void testSkippedAndProcessedMethods() throws InterruptedException, IOException {
 		Thread read = new Thread(processReadData);
 		read.start();
 		writeData.write();
 		Thread.sleep(10);
-		
+
 		assertEquals(2, Summary.getSkipped());
 		assertEquals(23, Summary.getProcessed());
-		
-		
+
 		writeData.closeWriter();
 		Path out = Paths.get(output);
 		Files.delete(out);
@@ -60,13 +71,15 @@ class SummaryTest {
 
 }
 
-/* Exact copy of write service implementation except writer.close() is
- * not called upon completion which allows testing the finished data
- * in Summary.class. Calls to print the results of ErrorReporter and 
- * Summary have also been omitted.
+/*
+ * Mock of write service implementation except writer.close() is not called upon
+ * at completion. This allows the skipped and process data to persist long
+ * enough to be tested. Calls to print the results of ErrorReporter and Summary
+ * have also been omitted.
  */
 class MockWriteServiceImpl implements WriteService {
 	private JsonWriter writer;
+
 	@Override
 	public WriteService getWriter(String filename) {
 		FileOutputStream fos = null;
@@ -78,7 +91,7 @@ class MockWriteServiceImpl implements WriteService {
 			System.exit(1);
 		}
 		writer = new JsonWriter(new OutputStreamWriter(fos, StandardCharsets.UTF_8));
-		writer.setIndent("    "); //makes the output pretty
+		writer.setIndent("    "); // makes the output pretty
 		try {
 			writer.beginObject();
 		} catch (IOException e) {
@@ -86,14 +99,16 @@ class MockWriteServiceImpl implements WriteService {
 		}
 		return this;
 	}
+
 	@Override
 	public void write() {
-		while(ReadPOJOQueue.getIsReceivingInput() || ReadPOJOQueue.getSize() > 0) {
+		while (ReadPOJOQueue.getIsReceivingInput() || ReadPOJOQueue.getSize() > 0) {
 			writeEntries();
 		}
 	}
+
 	private void writeEntries() {
-		while(ReadPOJOQueue.getSize() > 0) {
+		while (ReadPOJOQueue.getSize() > 0) {
 			ReadPOJO rpojo = ReadPOJOQueue.remove();
 			try {
 				writer.name(rpojo.getPath());
@@ -104,8 +119,9 @@ class MockWriteServiceImpl implements WriteService {
 			} catch (IOException e) {
 				writeFileError(e);
 			}
-		}		
+		}
 	}
+
 	@Override
 	public void closeWriter() {
 		try {
@@ -117,6 +133,7 @@ class MockWriteServiceImpl implements WriteService {
 			System.exit(1);
 		}
 	}
+
 	private void writeFileError(Exception e) {
 		ErrorReporter.add("Error writing to file");
 		LogManager.getLogger().error(e);

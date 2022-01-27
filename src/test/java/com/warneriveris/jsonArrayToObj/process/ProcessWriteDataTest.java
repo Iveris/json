@@ -14,6 +14,13 @@ import org.junit.jupiter.api.Test;
 
 import com.warneriveris.jsonArrayToObj.services.read.ReadPOJO;
 
+/**
+ * SUT: {@link ProcessWriteData}
+ * 
+ * @author Warner Iveris
+ *
+ */
+
 class ProcessWriteDataTest {
 
 	private static ProcessData pd;
@@ -35,6 +42,9 @@ class ProcessWriteDataTest {
 		Thread.sleep(10);
 	}
 
+	// The same data values in the test file are processed as strings in the setup
+	// and the resulting file sizes are compared to ensure that the finished 
+	// output file matches the test file.
 	@Test
 	void testFileSizes() throws Exception {
 		Path actualFile = Paths.get(actual);

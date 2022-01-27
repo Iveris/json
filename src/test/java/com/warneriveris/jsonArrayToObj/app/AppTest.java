@@ -18,6 +18,13 @@ import com.warneriveris.jsonArrayToObj.process.ReadPOJOQueue;
 import com.warneriveris.jsonArrayToObj.process.injectors.ProcessReadServiceInjector;
 import com.warneriveris.jsonArrayToObj.process.injectors.ProcessWriteServiceInjector;
 
+/**
+ * SUT: {@link App.java}
+ * 
+ * @author Warner Iveris
+ *
+ */
+
 class AppTest {
 	
 	private static final String URLInputPath = "https://raw.githubusercontent.com/SuperWarnerMan/JsonDataGenerator/main/";
@@ -30,6 +37,9 @@ class AppTest {
 	private static ProcessData processWriteData = new ProcessWriteServiceInjector().getService(outputPath + outputFile);
 	private static final File f = new File(outputPath + outputFile);
 	
+	/*
+	 * Integration test using a local file as the input
+	 */
 	@Test
 	void testOutputFileSizeLocal() throws InterruptedException {
 		Thread task = new Thread(()-> {
@@ -54,6 +64,9 @@ class AppTest {
 		task.join(100);
 	}
 	
+	/*
+	 * Integration test using a remote file as the input
+	 */
 	@Test
 	void testOutputFileSizeRemoteURL() throws InterruptedException {
 		Thread task = new Thread(()-> {
